@@ -14,6 +14,7 @@ let initialState = {
 const Login = () => {
   const { push } = useHistory();
   const [loginInfo, setLoginInfo] = useState(initialState)
+  
   const handleChange = (e) => {
     setLoginInfo({
         ...loginInfo,

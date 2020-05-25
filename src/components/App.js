@@ -8,6 +8,12 @@ import ProtectedRoute from "./PrivateRoute";
 import VolunteerRegistration from "./volunteers/volunteer-registration";
 import BusinessRegistration from "./businesses/business-registration";
 
+import BusinessProfile from "./businesses/business-profile";
+import AddPickup from "./businesses/addPickup";
+
+import VolunteerProfile from "./volunteers/volunteer-profile";
+import PickUpList from "./volunteers/pickup-list";
+
 function App() {
   return (
     <div className="App">
@@ -20,12 +26,20 @@ function App() {
       <Switch>
         {/* <ProtectedRoute exact path='/friendsList' component={FriendsList}/> */}
         <Route exact path="/" component={Login} />
+
         <Route
           path="/volunteer-registration"
           component={VolunteerRegistration}
         />
         <Route path="/business-registration" component={BusinessRegistration} />
+        <Route path="/business-profile" component={BusinessProfile} />
+        <Route path="/add-pickup" component={AddPickup}/>
+
+        <Route path="/volunteer-profile" component={VolunteerProfile}/>
+        <Route path="/pickup-list" component={PickUpList}/>
+
         <Route path="/logout" component={Logout} />
+        
       </Switch>
       
     </div>
