@@ -1,0 +1,1 @@
+//this will make a get request to display all the pickups 
