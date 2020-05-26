@@ -17,7 +17,7 @@ const AddPickup = () => {
 
   return (
     <div>
-      <h2>addPickup Form</h2>
+      <h2>Add a Pickup</h2>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor='amount'>Amount</label>&nbsp;
