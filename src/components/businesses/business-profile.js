@@ -98,6 +98,7 @@ function BusinessProfile() {
             <h2>{pickup["business-name"]}</h2>
             <h2>{pickup["business-address"]}</h2>
             <h2>{pickup["amount"]}</h2>
+           {pickup["volunteer-info"] === null ? <h2>No Volunteer Assigned Currently</h2>:<h2>{pickup["volunteer-info"]}</h2>}
             <h2>{date(pickup["pickup-date"]).format('ll')}</h2>
             </div>
             <button>Edit</button>

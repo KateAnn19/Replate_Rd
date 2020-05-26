@@ -42,6 +42,8 @@ export default AddPickup
 //     "amount": '',
 //     "pickup-date": '',
 //     "type": ''
+
+
 // }
 
 
@@ -89,5 +91,6 @@ export default AddPickup
 // -- Team Work Score
 // 2 ==> Team member was collaborative, able to work in a team environment
 // 3 ==> Pair programmed with the Web UI and Back end Architect
+
 
 

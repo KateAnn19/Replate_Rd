@@ -54,7 +54,7 @@ const PickUpList = () => {
     // make a GET request to fetch the data
     // pass the token with the request on the Authorization request header
     axiosWithAuth()
-      .get("/pickups/all/unassigned")
+      .get("/pickups/unassigned")
       .then((res) => {
        console.log(res);
         setPickups(res.data);
@@ -62,17 +62,39 @@ const PickUpList = () => {
       .catch((err) => console.log(err.response));
   }, []);
 
+  const acceptPickup = (e, id) => {
+    e.preventDefault();
+    console.log(id)
+    axiosWithAuth()
+    .put(`pickups/assign/${id}`, '')
+    .then((res) => {
+     console.log(res);
+      
+    })
+    .catch((err) => console.log(err.response));
+  }
+
   return (
     <div>
       <div className="pickup-container">
         {pickups.map((pickup) => (
-          <div key={pickup["pickup-id"]} className="pickups">
+          <div id={pickup["pickup-id"]} key={pickup["pickup-id"]} className="pickups">
             <h2>{pickup.type}</h2>
             <h2>{pickup["business-phone"]}</h2>
             <h2>{pickup["business-name"]}</h2>
             <h2>{pickup["business-address"]}</h2>
             <h2>{date(pickup["pickup-date"]).format('ll')}</h2>
-            <button>Accept</button>
+            <button onClick={() => 
+            //e.preventDefault()
+            //console.log(pickup["pickup-id"])
+            axiosWithAuth()
+            .put(`pickups/assign/${pickup["pickup-id"]}`)
+            .then((res) => {
+                //add a successfully assigned to profile message
+             console.log(res);
+            })
+            .catch((err) => console.log(err.response))
+            }>Accept</button>
           </div>
         ))}
       </div>
