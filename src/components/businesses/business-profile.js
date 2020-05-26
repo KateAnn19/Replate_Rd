@@ -5,12 +5,15 @@
 //the business will be able to edit or delete pickups they have created
 //the businesse's profile will display the pickups they have created along with the volunteer info that has agreed to pick it up ////if a volunteer is assigned and if a volunteer is not assigned then this information is blank
 //the pickups data will include ...
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
 //styles
 import "../styles/pickups.css";
+
+const date = require('moment');
 
 let fakeProfile = {
   name: "Ikea",
@@ -20,43 +23,64 @@ let fakeProfile = {
   role: "donor",
 };
 
-let fakePickups = [
-  {
-    type: "Bread",
-    amount: "2 pounds",
-    pickupTime: "May 3, 2022",
-  },
-  {
-    type: "Fruit",
-    amount: "6 pounds",
-    pickupTime: "June 5, 2022",
-  },
-  {
-    type: "Cereal",
-    amount: "5 pounds",
-    pickupTime: "June 23, 2022",
-  },
-];
+// ---------------------------------------------------
+// Dummy Data to be ignored
+//----------------------------------------------------
+// let fakePickups = [
+//   {
+//     type: "Bread",
+//     amount: "2 pounds",
+//     pickupTime: "May 3, 2022",
+//   },
+//   {
+//     type: "Fruit",
+//     amount: "6 pounds",
+//     pickupTime: "June 5, 2022",
+//   },
+//   {
+//     type: "Cereal",
+//     amount: "5 pounds",
+//     pickupTime: "June 23, 2022",
+//   },
+// ];
+// ---------------------------------------------------
+// Dummy Data to be ignored
+//----------------------------------------------------
 
 function BusinessProfile() {
   const [profile, setProfile] = useState(fakeProfile);
-  const [pickups, setPickups] = useState(fakePickups);
-
-  console.log(pickups);
-
+  const [pickups, setPickups] = useState([]);
   const { push } = useHistory();
 
-  //edit profile
-  //delete profile
+  useEffect(() => {
+    // make a GET request to fetch the data
+    // pass the token with the request on the Authorization request header
+    axiosWithAuth()
+      .get("pickups")
+      .then((res) => {
+       console.log(res);
+        setPickups(res.data);
+      })
+      .catch((err) => console.log(err.response));
+  }, []);
+
+ 
   //add pickup
-  //edit pickup
-  //delete pickup
+  const editBusProfile = () => {
+       //edit profile
+  };
 
-  const editBusProfile = () => {};
+  const editPickup = () => {
+      //edit pickup
+  };
 
-  const editPickup = () => {};
+  const deletePickup = () => {
+    //delete pickup
+};
 
-  const deleteBusProfile = () => {};
+  const deleteBusProfile = () => {
+      //delete profile
+  };
 
   return (
     <div>
@@ -65,13 +89,16 @@ function BusinessProfile() {
       <h3>{profile.phone}</h3>
       <h3>{profile.username}</h3>
       <h2>Current Pickups</h2>
-      <div className="container">
+        <div className="container">
         {pickups.map((pickup) => (
-          <div className="pickups">
-            <div className="pickups-container">
-              <h2>{pickup.type}</h2>
-              <h2>{pickup.amount}</h2>
-              <h2>{pickup.pickupTime}</h2>
+          <div key={pickup["pickup-id"]} className="pickups">
+              <div className="pickups-container">
+            <h2>{pickup.type}</h2>
+            <h2>{pickup["business-phone"]}</h2>
+            <h2>{pickup["business-name"]}</h2>
+            <h2>{pickup["business-address"]}</h2>
+            <h2>{pickup["amount"]}</h2>
+            <h2>{date(pickup["pickup-date"]).format('ll')}</h2>
             </div>
             <button>Edit</button>
             <button>Delete</button>
@@ -86,3 +113,28 @@ function BusinessProfile() {
 } //end businessProfile
 
 export default BusinessProfile;
+
+
+
+//------------------------------------------------------
+//this is for testing purposes and can be ignored
+//------------------------------------------------------
+
+// eslint-disable-next-line no-lone-blocks
+{/* <div className="container">
+        {pickups.map((pickup) => (
+          <div className="pickups">
+            <div className="pickups-container">
+              <h2>{pickup.type}</h2>
+              <h2>{pickup.amount}</h2>
+              <h2>{pickup.pickupTime}</h2>
+            </div>
+            <button>Edit</button>
+            <button>Delete</button>
+          </div>
+        ))}
+      </div> */}
+
+//------------------------------------------------------
+//this is for testing purposes and can be ignored
+//------------------------------------------------------
