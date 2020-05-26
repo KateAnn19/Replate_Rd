@@ -25,7 +25,7 @@ function App() {
       </nav>
       <Switch>
         {/* <ProtectedRoute exact path='/friendsList' component={FriendsList}/> */}
-        <Route exact path="/" component={Login} />
+         <Route exact path="/" component={Login} />
 
         <Route
           path="/volunteer-registration"
