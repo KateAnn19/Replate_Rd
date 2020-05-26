@@ -14,7 +14,7 @@ let initialState = {
 const Login = () => {
   const { push } = useHistory();
   const [loginInfo, setLoginInfo] = useState(initialState)
-  
+
   const handleChange = (e) => {
     setLoginInfo({
         ...loginInfo,
@@ -32,7 +32,8 @@ console.log(loginInfo)
         console.log(localStorage.getItem("token"))
         //if volunteer push to volunteer profile
         //if business push to business profile
-        // push("/profilePage"); //we will want to push to volunteer page if volunteer and donor page if donor
+        // eslint-disable-next-line no-lone-blocks
+        {loginInfo.role === 'business' ? push("/business-profile") : push("/volunteer-profile")} //we will want to push to volunteer page if volunteer and donor page if donor
         
       })
       .catch((err) => console.log(loginInfo.error));
@@ -80,3 +81,19 @@ console.log(loginInfo)
 }
 
 export default Login;
+
+
+//.post("/pickups", newPickup)
+
+
+//api/pickups/unassigned (list unassigned)
+
+
+//get pickups (list of pickups) - volunteer information if associated w/pickup if it has it (volunteer can see on profile)
+
+//post pickups (working)
+// businesses (working) 
+
+
+//business (get) (if logged in as a business)
+//business can create a pickup (post) (if logged in as business)

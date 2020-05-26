@@ -9,9 +9,4 @@
 //     "type": ''
 // }
 
-//.post("/pickups", newPickup)
-
-
-
-
 
