@@ -49,6 +49,18 @@ const PickUpList = () => {
   
     const { push } = useHistory();
   
+    //make your get request here
+    //display the data 
+    //the data we want displayed is 
+    //type
+    //"business-phone"
+    //"business-name"
+    //"business-address"
+    //"pickup-date" 
+
+    //getting the data to display may be a little tricky. Remember there are two ways to access an object... with dot notation
+    //and with bracket notation. 
+        
     
   
    
