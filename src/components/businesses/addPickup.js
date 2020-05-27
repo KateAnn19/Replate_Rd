@@ -4,14 +4,24 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
-import { Button, ButtonGroup ,TextField} from '@material-ui/core'
+import { Button, ButtonGroup, TextField } from '@material-ui/core'
 
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 const AddPickup = () => {
   // Extract the named exports from the useForm hook that are needed for this form
   // The useForm hook handles the form management including state
-  const { register, handleSubmit, errors } = useForm()
+
+  // Set the default values for the form
+  const { register, errors, handleSubmit } = useForm({
+    mode: "onChange",
+    reValidateMode: "onChange",
+    defaultValues: {
+      "amount": '',
+      "pickup-date": '',
+      "type": ''
+    }
+  })
 
   // Create the callback for the handleSubmit function. The parameter (whatever I name it)
   // will contain all the form's data.
@@ -38,28 +48,28 @@ const AddPickup = () => {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor='amount'>Amount: </label>&nbsp;
-        <TextField 
-          type='text' 
+        <TextField
+          type='text'
           name='amount'
           placeholder='amount'
-          ref={register({ required: 'Please provide a quantity', minLength: 5 })} />
-          <br />
+          inputRef={register({ required: 'Please provide a quantity', minLength: 5 })} />
+        <br />
         {errors.amount && <p>{errors.amount.message}</p>}<br />
 
         <label htmlFor='pickup-date'>Pickup Date: </label>&nbsp;
-        <TextField 
-          type='text' 
-          name='pickup-date' 
-          placeholder='yyyy-mm-dd' 
-          ref={register} />
-          <br />
+        <TextField
+          type='text'
+          name='pickup-date'
+          placeholder='yyyy-mm-dd'
+          inputRef={register} />
+        <br />
 
         <label htmlFor='type'>Type: </label>&nbsp;
-        <TextField 
-          type='text' 
+        <TextField
+          type='text'
           name='type'
           placeholder='type of pickup'
-          ref={register({ required: 'Please describe what is to be picked up', minLength: 5 })} /><br />
+          inputRef={register({ required: 'Please describe what is to be picked up', minLength: 5 })} /><br />
         {errors.type && <p>{errors.type.message}</p>}
         <br /><br />
 
@@ -81,13 +91,6 @@ const AddPickup = () => {
 
 export default AddPickup
 
-// let initialState = {
-//     "amount": '',
-//     "pickup-date": '',
-//     "type": ''
-
-
-// }
 
 
 
