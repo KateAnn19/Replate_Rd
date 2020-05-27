@@ -77,3 +77,65 @@ const AddPickup = () => {
 
 
 
+//pickup list get --- testing purposes only 
+
+
+const PickUpList = () => {
+  
+  const { push } = useHistory();
+
+  
+
+ 
+
+  return (
+    <!-- <div> -->
+      
+      
+      <button onClick={() => push("/volunteer-profile")}>
+        Back to Profile
+      </button>
+    </div>
+  );
+};
+
+
+const [pickups, setPickups] = useState([]);  
+
+useEffect(() => {
+    // make a GET request to fetch the data
+    // pass the token with the request on the Authorization request header
+    axiosWithAuth()
+      .get("/pickups/unassigned")
+      .then((res) => {
+       console.log(res);
+        setPickups(res.data);
+      })
+      .catch((err) => console.log(err.response));
+  }, []);
+
+
+
+  <!-- <div className="pickup-container">
+        {pickups.map((pickup) => (
+          <div id={pickup["pickup-id"]} key={pickup["pickup-id"]} className="pickups">
+            <h2>{pickup.type}</h2>
+            <h2>{pickup["business-phone"]}</h2>
+            <h2>{pickup["business-name"]}</h2>
+            <h2>{pickup["business-address"]}</h2>
+            <h2>{date(pickup["pickup-date"]).format('ll')}</h2>
+            <button onClick={() => 
+            //e.preventDefault()
+            //console.log(pickup["pickup-id"])
+            axiosWithAuth()
+            .put(`pickups/assign/${pickup["pickup-id"]}`, {"volunteer-id" :"assign"})
+            .then((res) => {
+                //add a successfully assigned to profile message
+              push("/volunteer-profile")
+            })
+            .catch((err) => console.log(err.response))
+            }>Accept</button>
+          </div>
+        ))} -->
+
+    </div>

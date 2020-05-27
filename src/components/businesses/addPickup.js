@@ -4,6 +4,8 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
+import {axiosWithAuth} from '../../utils/axiosWithAuth';
+
 const AddPickup = () => {
   // Extract the named exports from the useForm hook that are needed for this form
   // The useForm hook handles the form management including state
@@ -12,7 +14,14 @@ const AddPickup = () => {
   // Create the callback for the handleSubmit function. The parameter (whatever I name it)
   // will contain all the form's data.
   const onSubmit = (formData) => {
-    console.log(formData)
+    //   e.preventDefault()
+    axiosWithAuth()
+    .post("pickups", formData)
+    .then((res) => {
+        console.log(res);
+         
+       })
+       .catch((err) => console.log(err.response));
   }
 
   return (

@@ -95,7 +95,7 @@ function VolunteerProfile() {
               <h2>{pickup["amount"]}</h2>
               <h2>{date(pickup["pickup-date"]).format("ll")}</h2>
             </div>
-            <button>Accept</button>
+            <button>Delete</button>
           </div>
         ))}
       </div>
