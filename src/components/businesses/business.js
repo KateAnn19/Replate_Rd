@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
+import useForceUpdate from "use-force-update";
 
 import EditPickup from "./editPickup";
 
@@ -10,10 +11,15 @@ import "../styles/pickups.css";
 
 const date = require("moment");
 
-function Business({ data }) {
+function Business({ data, update}) {
   const [pickups, setPickups] = useState(data);
   const [isEditing, setIsEditing] = useState(false);
   const [editingPickup, setPickupToEdit] = useState(null);
+
+  console.log(data)
+
+  const forceUpdate = useForceUpdate();
+
   const { push } = useHistory();
   console.log(pickups);
 
@@ -21,18 +27,27 @@ function Business({ data }) {
     setIsEditing(true);
     setPickupToEdit(pickup);
   };
+  const deletePickup = (id) => {
+    //delete pickup
+    axiosWithAuth()
+      .delete(`pickups/${id}`)
+      .then((res) => {
+        update([]);
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <div className="container">
-    
       {pickups === undefined
         ? "loading"
         : pickups.map((p) => (
             <div className="List" key={p["pickup-id"]}>
+              {console.log(p)}
               <h2>{p.type}</h2>
               <h2>{p["business-address"]}</h2>
               <h2>{p.amount}</h2>
               <h2>{p["business-name"]}</h2>
-              {p["volunteer-info"] === null ? (
+              {p["volunteer-info"] !== "string" ? (
                 <h2>No Volunteer Assigned Currently</h2>
               ) : (
                 <h2>{p["volunteer-info"]}</h2>
@@ -40,10 +55,12 @@ function Business({ data }) {
               <h2>{date(p["pickup-date"]).format("ll")}</h2>
               <h2>{p["business-phone"]}</h2>
               <button onClick={() => editPickup(p)}>Edit</button>
-              <button>Delete</button>
+              <button onClick={() => deletePickup(p["pickup-id"])}>
+                Delete
+              </button>
             </div>
           ))}
-      
+
       {isEditing ? (
         <EditPickup
           setPickups={setPickups}
@@ -58,41 +75,3 @@ function Business({ data }) {
 
 export default Business;
 
-// return (
-//     <div>
-//       <div className="container">
-//         <div className="pickups-container">
-//           <h2>{pickup.type}</h2>
-//           <h2>{pickup["business-phone"]}</h2>
-//           <h2>{pickup["business-name"]}</h2>
-//           <h2>{pickup["business-address"]}</h2>
-//           <h2>{pickup["amount"]}</h2>
-//           {pickup["volunteer-info"] === null ? (
-//             <h2>No Volunteer Assigned Currently</h2>
-//           ) : (
-//             <h2>{pickup["volunteer-info"]}</h2>
-//           )}
-//           <h2>{date(pickup["pickup-date"]).format("ll")}</h2>
-//           {isEditing ? (
-//             <EditPickup
-//               picks={picks}
-//               pickup={pickup}
-//               setPickups={setPickups}
-//               setIsEditing={setIsEditing}
-//               id={pickup["pickup-id"]}
-//               type={pickup.type}
-//               amount={pickup.amount}
-//               date={date(pickup["pickup-date"]).format("ll")}
-//               newDate={pickup["pickup-date"]}
-//             />
-//           ) : (
-//             <>
-//               <button onClick={() => setIsEditing(!isEditing)}>Edit</button>
-//               <button>Delete</button>
-//             </>
-//           )}
-//         </div>
-//       </div>
-//       <button onClick={() => push("/add-pickup")}>Add Pickup</button>
-//     </div>
-//   );
