@@ -5,15 +5,19 @@
 //the business will be able to edit or delete pickups they have created
 //the businesse's profile will display the pickups they have created along with the volunteer info that has agreed to pick it up ////if a volunteer is assigned and if a volunteer is not assigned then this information is blank
 //the pickups data will include ...
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
+import EditPickup from "./editPickup";
+
+import Business from "./business";
+
 //styles
 import "../styles/pickups.css";
 
-const date = require('moment');
+const date = require("moment");
 
 let fakeProfile = {
   name: "Ikea",
@@ -47,9 +51,11 @@ let fakeProfile = {
 // Dummy Data to be ignored
 //----------------------------------------------------
 
-function BusinessProfile() {
+function BusinessProfile(props) {
   const [profile, setProfile] = useState(fakeProfile);
   const [pickups, setPickups] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+
   const { push } = useHistory();
 
   useEffect(() => {
@@ -58,28 +64,24 @@ function BusinessProfile() {
     axiosWithAuth()
       .get("pickups")
       .then((res) => {
-       console.log(res);
+        console.log(res);
         setPickups(res.data);
+        
       })
       .catch((err) => console.log(err.response));
   }, []);
 
- 
   //add pickup
   const editBusProfile = () => {
-       //edit profile
-  };
-
-  const editPickup = () => {
-      //edit pickup
+    //edit profile
   };
 
   const deletePickup = () => {
     //delete pickup
-};
+  };
 
   const deleteBusProfile = () => {
-      //delete profile
+    //delete profile
   };
 
   return (
@@ -89,21 +91,9 @@ function BusinessProfile() {
       <h3>{profile.phone}</h3>
       <h3>{profile.username}</h3>
       <h2>Current Pickups</h2>
-        <div className="container">
+      <div className="container">
         {pickups.map((pickup) => (
-          <div key={pickup["pickup-id"]} className="pickups">
-              <div className="pickups-container">
-            <h2>{pickup.type}</h2>
-            <h2>{pickup["business-phone"]}</h2>
-            <h2>{pickup["business-name"]}</h2>
-            <h2>{pickup["business-address"]}</h2>
-            <h2>{pickup["amount"]}</h2>
-           {pickup["volunteer-info"] === null ? <h2>No Volunteer Assigned Currently</h2>:<h2>{pickup["volunteer-info"]}</h2>}
-            <h2>{date(pickup["pickup-date"]).format('ll')}</h2>
-            </div>
-            <button>Edit</button>
-            <button>Delete</button>
-          </div>
+          <Business picks={pickups} pickup={pickup} key={pickup["pickup-id"]}/>
         ))}
       </div>
       <button onClick={() => push("/add-pickup")}>Add Pickup</button>
@@ -115,14 +105,13 @@ function BusinessProfile() {
 
 export default BusinessProfile;
 
-
-
 //------------------------------------------------------
 //this is for testing purposes and can be ignored
 //------------------------------------------------------
 
 // eslint-disable-next-line no-lone-blocks
-{/* <div className="container">
+{
+  /* <div className="container">
         {pickups.map((pickup) => (
           <div className="pickups">
             <div className="pickups-container">
@@ -134,7 +123,8 @@ export default BusinessProfile;
             <button>Delete</button>
           </div>
         ))}
-      </div> */}
+      </div> */
+}
 
 //------------------------------------------------------
 //this is for testing purposes and can be ignored
