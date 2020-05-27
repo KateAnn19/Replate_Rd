@@ -83,7 +83,7 @@ const AddPickup = () => {
           aria-label='text primary button group'
         >
           <Button type='submit'>Add Pickup</Button>
-          <Button type='button' onClick={goBack}>Go Back</Button>
+          <Button type='button' onClick={goBack}>Return To Profile</Button>
         </ButtonGroup>
       </form>
       {/*      
