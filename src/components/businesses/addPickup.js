@@ -20,16 +20,22 @@ const AddPickup = () => {
       <h2>Add a Pickup</h2>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor='amount'>Amount</label>&nbsp;
-        <input type='text' name='amount' ref={register} /><br />
+        <label htmlFor='amount'>Amount: </label>&nbsp;
+        <input type='text' name='amount' 
+          ref={register({required:'Please provide a quantity',minLength: 5})} /><br />
+          {errors.amount && <p>{errors.amount.message}</p>}
 
-        <label htmlFor='pickup-date'>Pickup Date</label>&nbsp;
-        <input type='text' name='pickup-date' ref={register} /><br />
+        <label htmlFor='pickup-date'>Pickup Date: </label>&nbsp;
+        <input type='text' name='pickup-date' placeholder='yyyy-mm-dd' ref={register} /><br />
 
-        <label htmlFor='type'>Type:</label>&nbsp;
-        <input type='text' name='type' ref={register} /><br /><br />
+        <label htmlFor='type'>Type: </label>&nbsp;
+        <input type='text' name='type' 
+          ref={register({required:'Please describe what is to be picked up', minLength: 5})} />
+          {errors.type && <p>{errors.type.message}</p>}
+          <br /><br />
 
         <button>Add Pickup</button>
+        <button>Return To Profile</button>
       </form>
     </div>
   )
