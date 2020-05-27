@@ -1,17 +1,31 @@
 //this is a form that will allow the business to add a pickup to their profile
 //when the business creates a new pickup it will also display on the pickup list
 //it will also display on the business profile
-import React from "react";
-import { useForm } from "react-hook-form";
 
-import { axiosWithAuth } from "../../utils/axiosWithAuth";
-import { useHistory } from "react-router-dom";
+import React from 'react'
+import { useForm } from 'react-hook-form'
+import { useHistory } from 'react-router-dom'
+import { Button, ButtonGroup, TextField } from '@material-ui/core'
+
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
+
 
 const AddPickup = () => {
   // Extract the named exports from the useForm hook that are needed for this form
   // The useForm hook handles the form management including state
-  const { register, handleSubmit, errors } = useForm();
-  const { push } = useHistory();
+
+
+  // Set the default values for the form
+  const { register, errors, handleSubmit } = useForm({
+    mode: "onChange",
+    reValidateMode: "onChange",
+    defaultValues: {
+      "amount": '',
+      "pickup-date": '',
+      "type": ''
+    }
+  })
+
 
   // Create the callback for the handleSubmit function. The parameter (whatever I name it)
   // will contain all the form's data.
@@ -21,50 +35,61 @@ const AddPickup = () => {
       .post("pickups", formData)
       .then((res) => {
         console.log(res);
-        setTimeout(function () {
-          push("/business-profile");
-        }, 1000);
+
+
       })
       .catch((err) => console.log(err.response));
-  };
+  }
+
+
+  // Keep track of routing history
+  let history = useHistory()
+
+  // Go back to calling page
+  const goBack = () => history.goBack()
 
   return (
     <div>
       <h2>Add a Pickup</h2>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="amount">Amount: </label>&nbsp;
-        <input
-          type="text"
-          name="amount"
-          ref={register({
-            required: "Please provide a quantity",
-            minLength: 5,
-          })}
-        />
+
+        <label htmlFor='amount'>Amount: </label>&nbsp;
+        <TextField
+          type='text'
+          name='amount'
+          placeholder='amount'
+          inputRef={register({ required: 'Please provide a quantity', minLength: 5 })} />
         <br />
-        {errors.amount && <p>{errors.amount.message}</p>}
-        <label htmlFor="pickup-date">Pickup Date: </label>&nbsp;
-        <input
-          type="text"
-          name="pickup-date"
-          placeholder="yyyy-mm-dd"
-          ref={register}
-        />
+        {errors.amount && <p>{errors.amount.message}</p>}<br />
+
+        <label htmlFor='pickup-date'>Pickup Date: </label>&nbsp;
+        <TextField
+          type='text'
+          name='pickup-date'
+          placeholder='yyyy-mm-dd'
+          inputRef={register} />
         <br />
-        <label htmlFor="type">Type: </label>&nbsp;
-        <input
-          type="text"
-          name="type"
-          ref={register({
-            required: "Please describe what is to be picked up",
-            minLength: 2,
-          })}
-        />
+
+        <label htmlFor='type'>Type: </label>&nbsp;
+        <TextField
+          type='text'
+          name='type'
+          placeholder='type of pickup'
+          inputRef={register({ required: 'Please describe what is to be picked up', minLength: 5 })} /><br />
         {errors.type && <p>{errors.type.message}</p>}
-        <br />
-        <br />
-        <button>Add Pickup</button>
+        <br /><br />
+
+        <ButtonGroup
+          variant='text'
+          color='primary'
+          aria-label='text primary button group'
+        >
+          <Button>Add Pickup</Button>
+          <Button type='button' onClick={goBack}>Go Back</Button>
+        </ButtonGroup>
+
+
       </form>
       <button onClick={() => push("/business-profile")}>
         Return To Profile
@@ -75,12 +100,8 @@ const AddPickup = () => {
 
 export default AddPickup;
 
-// let initialState = {
-//     "amount": '',
-//     "pickup-date": '',
-//     "type": ''
 
-// }
+
 
 // ~~ N O T E S ~~ //
 // [ Web Unit 2 ]
