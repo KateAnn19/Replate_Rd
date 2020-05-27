@@ -4,7 +4,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
-import { Button, ButtonGroup } from '@material-ui/core'
+import { Button, ButtonGroup ,TextField} from '@material-ui/core'
 
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
@@ -38,16 +38,28 @@ const AddPickup = () => {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor='amount'>Amount: </label>&nbsp;
-        <TextField type='text' name='amount'
-          ref={register({ required: 'Please provide a quantity', minLength: 5 })} /><br />
-        {errors.amount && <p>{errors.amount.message}</p>}
+        <TextField 
+          type='text' 
+          name='amount'
+          placeholder='amount'
+          ref={register({ required: 'Please provide a quantity', minLength: 5 })} />
+          <br />
+        {errors.amount && <p>{errors.amount.message}</p>}<br />
 
         <label htmlFor='pickup-date'>Pickup Date: </label>&nbsp;
-        <TextField type='text' name='pickup-date' placeholder='yyyy-mm-dd' ref={register} /><br />
+        <TextField 
+          type='text' 
+          name='pickup-date' 
+          placeholder='yyyy-mm-dd' 
+          ref={register} />
+          <br />
 
         <label htmlFor='type'>Type: </label>&nbsp;
-        <TextField type='text' name='type'
-          ref={register({ required: 'Please describe what is to be picked up', minLength: 5 })} />
+        <TextField 
+          type='text' 
+          name='type'
+          placeholder='type of pickup'
+          ref={register({ required: 'Please describe what is to be picked up', minLength: 5 })} /><br />
         {errors.type && <p>{errors.type.message}</p>}
         <br /><br />
 
