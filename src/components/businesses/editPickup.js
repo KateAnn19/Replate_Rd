@@ -8,37 +8,15 @@ import moment from "moment";
 import { useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
-const EditPickup = ({
-  id,
-  picks,
-  pickup,
-  setPickups,
-  setIsEditing,
-  type,
-  amount,
-  date,
-  newDate,
-}) => {
+const EditPickup = ({ id, setIsEditing, info, data, setPickups }) => {
   const [editPickup, setEditPickup] = useState({
-    "pickup-id": id,
-    "type": type,
-    "amount": amount,
-    "pickup-date": date,
+    "pickup-id": info["pickup-id"],
+    type: info.type,
+    amount: info.amount,
+    "pickup-date": info["pickup-date"],
   });
   const { push } = useHistory();
-
-  console.log(editPickup)
-
-//   useEffect(() => {
-//     // make a GET request to fetch the data
-//     // pass the token with the request on the Authorization request header
-//     setEditPickup({
-//       "pickup-id": id,
-//       "type": type,
-//       "amount": amount,
-//       "pickup-date": date,
-//     });
-//   }, []);
+  console.log("HERE", editPickup);
 
   //   {
   //     "pickup-id": 13,
@@ -47,8 +25,6 @@ const EditPickup = ({
   //     "pickup-date": "2020-05-30T05:00:00.000Z"
   // }
 
-  console.log(editPickup);
-
   const handleChange = (e) => {
     setEditPickup({
       ...editPickup,
@@ -56,14 +32,16 @@ const EditPickup = ({
     });
   };
 
-  const edit = (e) => {
+  const exit = (e) => {
     setIsEditing(false);
   };
+
   const updatePickup = (e) => {
     axiosWithAuth()
-      .put(`pickups/${id}`, editPickup)
+      .put(`pickups/${info["pickup-id"]}`, editPickup)
       .then((response) => {
-        setPickups([...picks, response]);
+        console.log(response);
+        setPickups([...data, response]);
         setTimeout(function () {
           setIsEditing(false);
         }, 2000);
@@ -80,7 +58,7 @@ const EditPickup = ({
         <input
           id="type"
           type="text"
-          name= "type"
+          name="type"
           value={editPickup["type"]}
           onChange={handleChange}
         />
@@ -101,12 +79,12 @@ const EditPickup = ({
           type="text"
           name="pickup-date"
           placeholder="yyyy-mm-dd"
-        //   value={editPickup["pickup-date"]}
+          value={editPickup["pickup-date"]}
         />
 
         <button type="submit">Add Updated Pickup</button>
       </form>
-      <button onClick={edit}>X</button>
+      <button onClick={exit}>X</button>
     </div>
   );
 };

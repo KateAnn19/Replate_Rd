@@ -25,26 +25,23 @@ function App() {
         <Link to="/logout">Logout</Link>
       </nav>
       <Switch>
-        {/* <ProtectedRoute exact path='/friendsList' component={FriendsList}/> */}
-         <Route exact path="/" component={Login} />
+        <Route exact path="/" component={Login} />
 
         <Route
           path="/volunteer-registration"
           component={VolunteerRegistration}
         />
         <Route path="/business-registration" component={BusinessRegistration} />
-        <Route path="/business-profile" component={BusinessProfile} />
-        <Route path="/add-pickup" component={AddPickup}/>
+        <ProtectedRoute path="/business-profile" component={BusinessProfile} />
+        <Route path="/add-pickup" component={AddPickup} />
 
-        <Route path="/volunteer-profile" component={VolunteerProfile}/>
-        <Route path="/pickup-list" component={PickUpList}/>
+        <Route path="/volunteer-profile" component={VolunteerProfile} />
+        <Route path="/pickup-list" component={PickUpList} />
 
         <Route path="/logout" component={Logout} />
 
-        <Route path="/editPickup" component={EditPickup}/>
-        
+        <Route path="/editPickup" component={EditPickup} />
       </Switch>
-      
     </div>
   );
 }
