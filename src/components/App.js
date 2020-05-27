@@ -13,6 +13,7 @@ import AddPickup from "./businesses/addPickup";
 
 import VolunteerProfile from "./volunteers/volunteer-profile";
 import PickUpList from "./volunteers/pickup-list";
+import EditPickup from "./businesses/editPickup";
 
 function App() {
   return (
@@ -39,6 +40,8 @@ function App() {
         <Route path="/pickup-list" component={PickUpList}/>
 
         <Route path="/logout" component={Logout} />
+
+        <Route path="/editPickup" component={EditPickup}/>
         
       </Switch>
       
