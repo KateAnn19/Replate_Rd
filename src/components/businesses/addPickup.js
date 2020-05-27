@@ -44,8 +44,9 @@ const AddPickup = () => {
           <br /><br />
 
         <button>Add Pickup</button>
-        <button>Return To Profile</button>
+        
       </form>
+      <button>Return To Profile</button>
     </div>
   )
 }

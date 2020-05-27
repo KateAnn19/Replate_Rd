@@ -17,7 +17,7 @@ import Business from "./business";
 //styles
 import "../styles/pickups.css";
 
-const date = require("moment");
+const d = require("moment");
 
 let fakeProfile = {
   name: "Ikea",
@@ -55,7 +55,7 @@ function BusinessProfile(props) {
   const [profile, setProfile] = useState(fakeProfile);
   const [pickups, setPickups] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-
+  const [isLoaded, setIsLoaded] = useState(false);
   const { push } = useHistory();
 
   useEffect(() => {
@@ -65,10 +65,12 @@ function BusinessProfile(props) {
       .get("pickups")
       .then((res) => {
         console.log(res);
-        setPickups(res.data);
-        
+        setPickups([...res.data]);
+        setTimeout(function () {
+          setIsLoaded(true);
+        }, 1000);
       })
-      .catch((err) => console.log(err.response));
+      .catch((err) => console.log(err));
   }, []);
 
   //add pickup
@@ -91,11 +93,8 @@ function BusinessProfile(props) {
       <h3>{profile.phone}</h3>
       <h3>{profile.username}</h3>
       <h2>Current Pickups</h2>
-      <div className="container">
-        {pickups.map((pickup) => (
-          <Business picks={pickups} pickup={pickup} key={pickup["pickup-id"]}/>
-        ))}
-      </div>
+      {isLoaded === false ? "loading" : <Business data={pickups} />}
+
       <button onClick={() => push("/add-pickup")}>Add Pickup</button>
       <button onClick={editBusProfile}>Edit Profile</button>
       <button onClick={deleteBusProfile}>Delete Profile</button>
