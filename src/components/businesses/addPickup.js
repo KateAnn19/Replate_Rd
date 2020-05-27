@@ -9,7 +9,7 @@ import { axiosWithAuth } from '../../utils/axiosWithAuth'
 
 const AddPickup = () => {
   // Set the default values for the form
-  const { register, errors, handleSubmit } = useForm({
+  const { register, errors, handleSubmit, reset } = useForm({
     mode: "onChange",
     reValidateMode: "onChange",
     defaultValues: {
@@ -34,11 +34,15 @@ const AddPickup = () => {
         console.log(res)
       })
       .catch((err) => console.log(err.response))
+
+      // Clear the form
+      console.log(register)
+      reset()
   }
 
   // Keep track of routing history
   let history = useHistory()
-
+  
   // Go back to calling page
   const goBack = () => history.goBack()
   const typeErrMessage = 'Please describe what is to be picked up'
@@ -54,7 +58,7 @@ const AddPickup = () => {
           type='text'
           name='amount'
           placeholder='amount'
-          inputRef={register({ required: { amountErrMessage }, minLength: 5 })} />
+          inputRef={register({ required: { amountErrMessage }, minLength: 2 })} />
         <br />
         {errors.amount && <p>{errors.amount.message}</p>}
         <br />
