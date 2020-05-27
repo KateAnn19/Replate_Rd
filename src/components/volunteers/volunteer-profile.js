@@ -55,6 +55,13 @@ function VolunteerProfile() {
   useEffect(() => {
     // make a GET request to fetch the data
     // pass the token with the request on the Authorization request header
+    getData();
+    getProfileDetails();
+  }, []);
+
+  //add pickup
+
+  const getData = () => {
     axiosWithAuth()
       .get("pickups")
       .then((res) => {
@@ -62,9 +69,16 @@ function VolunteerProfile() {
         setPickups(res.data);
       })
       .catch((err) => console.log(err.response));
-  }, []);
+  };
 
-  //add pickup
+  const getProfileDetails = () => {
+    axiosWithAuth()
+      .get("volunteers")
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  };
 
   const deletePickup = () => {
     //delete pickup from profile
@@ -76,6 +90,13 @@ function VolunteerProfile() {
 
   const deleteVolProfile = () => {
     //delete profile
+    axiosWithAuth()
+      .delete("volunteers")
+      .then((res) => {
+        console.log(res);
+        push('/logout')
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -108,13 +129,13 @@ function VolunteerProfile() {
 
 export default VolunteerProfile;
 
-
 //----------------------------------------------------
 // for testing purposes - can be ignored
 //----------------------------------------------------
 
- // eslint-disable-next-line no-lone-blocks
- {/* {pickups.map((pickup) => (
+// eslint-disable-next-line no-lone-blocks
+{
+  /* {pickups.map((pickup) => (
           <div className="pickups">
             <div className="pickups-container">
               <h2>{pickup.type}</h2>
@@ -123,7 +144,8 @@ export default VolunteerProfile;
             </div>
             <button onClick={deletePickup}>Delete</button>
           </div>
-        ))} */}
+        ))} */
+}
 //----------------------------------------------------
 // for testing purposes - can be ignored
 //----------------------------------------------------

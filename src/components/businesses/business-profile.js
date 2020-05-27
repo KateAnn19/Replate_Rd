@@ -54,18 +54,21 @@ let fakeProfile = {
 function BusinessProfile(props) {
   const [profile, setProfile] = useState(fakeProfile);
   const [pickups, setPickups] = useState([]);
-  const [isEditing, setIsEditing] = useState(false);
+  
   const [isLoaded, setIsLoaded] = useState(false);
   const { push } = useHistory();
 
   useEffect(() => {
     // make a GET request to fetch the data
     // pass the token with the request on the Authorization request header
+    //getProfileDetails();
+    //getData();
     axiosWithAuth()
       .get("pickups")
       .then((res) => {
         console.log(res);
         setPickups([...res.data]);
+        
         setTimeout(function () {
           setIsLoaded(true);
         }, 1000);
@@ -73,17 +76,34 @@ function BusinessProfile(props) {
       .catch((err) => console.log(err));
   }, []);
 
+  const getData = () => {
+    console.log("calling update");
+    
+  };
+
+  const getProfileDetails = () => {
+    axiosWithAuth()
+      .put("donor")
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  };
+
   //add pickup
   const editBusProfile = () => {
     //edit profile
   };
 
-  const deletePickup = () => {
-    //delete pickup
-  };
-
   const deleteBusProfile = () => {
     //delete profile
+    axiosWithAuth()
+      .delete("donors")
+      .then((res) => {
+        console.log(res);
+        push('/logout')
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -93,7 +113,16 @@ function BusinessProfile(props) {
       <h3>{profile.phone}</h3>
       <h3>{profile.username}</h3>
       <h2>Current Pickups</h2>
-      {isLoaded === false ? "loading" : <Business data={pickups} />}
+      {isLoaded === false ? (
+        "loading"
+      ) : (
+        <Business
+          setIsLoaded={setIsLoaded}
+          update={getData}
+          setAllPickups={setPickups}
+          data={pickups}
+        />
+      )}
 
       <button onClick={() => push("/add-pickup")}>Add Pickup</button>
       <button onClick={editBusProfile}>Edit Profile</button>

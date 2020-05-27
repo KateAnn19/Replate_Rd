@@ -33,6 +33,8 @@ console.log(loginInfo)
         //if volunteer push to volunteer profile
         //if business push to business profile
         // eslint-disable-next-line no-lone-blocks
+        
+        // eslint-disable-next-line no-lone-blocks
         {loginInfo.role === 'business' ? push("/business-profile") : push("/volunteer-profile")} //we will want to push to volunteer page if volunteer and donor page if donor
         
       })
