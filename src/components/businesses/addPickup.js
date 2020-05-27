@@ -3,8 +3,10 @@
 //it will also display on the business profile
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { useHistory } from 'react-router-dom'
+import { Button, ButtonGroup } from '@material-ui/core'
 
-import {axiosWithAuth} from '../../utils/axiosWithAuth';
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 const AddPickup = () => {
   // Extract the named exports from the useForm hook that are needed for this form
@@ -16,13 +18,19 @@ const AddPickup = () => {
   const onSubmit = (formData) => {
     //   e.preventDefault()
     axiosWithAuth()
-    .post("pickups", formData)
-    .then((res) => {
+      .post("pickups", formData)
+      .then((res) => {
         console.log(res);
-         
-       })
-       .catch((err) => console.log(err.response));
+
+      })
+      .catch((err) => console.log(err.response));
   }
+
+  // Keep track of routing history
+  let history = useHistory()
+
+  // Go back to calling page
+  const goBack = () => history.goBack()
 
   return (
     <div>
@@ -30,21 +38,28 @@ const AddPickup = () => {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor='amount'>Amount: </label>&nbsp;
-        <input type='text' name='amount' 
-          ref={register({required:'Please provide a quantity',minLength: 5})} /><br />
-          {errors.amount && <p>{errors.amount.message}</p>}
+        <TextField type='text' name='amount'
+          ref={register({ required: 'Please provide a quantity', minLength: 5 })} /><br />
+        {errors.amount && <p>{errors.amount.message}</p>}
 
         <label htmlFor='pickup-date'>Pickup Date: </label>&nbsp;
-        <input type='text' name='pickup-date' placeholder='yyyy-mm-dd' ref={register} /><br />
+        <TextField type='text' name='pickup-date' placeholder='yyyy-mm-dd' ref={register} /><br />
 
         <label htmlFor='type'>Type: </label>&nbsp;
-        <input type='text' name='type' 
-          ref={register({required:'Please describe what is to be picked up', minLength: 5})} />
-          {errors.type && <p>{errors.type.message}</p>}
-          <br /><br />
+        <TextField type='text' name='type'
+          ref={register({ required: 'Please describe what is to be picked up', minLength: 5 })} />
+        {errors.type && <p>{errors.type.message}</p>}
+        <br /><br />
 
-        <button>Add Pickup</button>
-        
+        <ButtonGroup
+          variant='text'
+          color='primary'
+          aria-label='text primary button group'
+        >
+          <Button>Add Pickup</Button>
+          <Button type='button' onClick={goBack}>Go Back</Button>
+        </ButtonGroup>
+
       </form>
       <button>Return To Profile</button>
     </div>
