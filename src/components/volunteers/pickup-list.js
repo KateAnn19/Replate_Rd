@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom"; //this can be used to easily navi
 // this is so the request is authenticated. Look at the addPickup form you created to see how to correctly implement this on your get request 
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
+import PickupCard from '../volunteers/PickupCard'
 import "../styles/pickup-list.css";
 
 const date = require('moment');  //this is to format the date so it shows up more nicely. I can show you how it works if you are
@@ -42,37 +43,7 @@ const PickUpList = () => {
   // to access an object... with dot notation and with bracket notation. 
 
   return (
-    <div className='pickup-list-container' >
-
-      {pickupList.map(item => {
-        return (
-          <div key={item['pickup-id']}>
-
-            <section className='pickup-list-card' >
-              <h1 className='pickup-list-heading'>{item['type']}</h1>
-
-              <p className='pickup-list-details'>
-              <span id='amount'>{item['amount']}</span>
-                <span id='date'>{item['pickup-date'].slice(0, 10)}</span>
-                <span id='name'>{item['business-name']}</span>
-                <span id='address'>{item['business-address']}</span>
-                <span id='phone'>{item['business-phone']}</span>
-                </p>
-                
-              <button
-                onClick={() => console.log('Pickup accepted')}>
-                Accept pickup
-                </button>
-
-              <button
-                onClick={() => push("/volunteer-profile")}>
-                Back to Profile
-              </button>
-
-            </section>
-          </div>)
-      })}
-    </div>
+    <PickupCard pickupList={pickupList}/>
   );
 };
 
