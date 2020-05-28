@@ -14,7 +14,12 @@ import EditPickup from "./editPickup";
 
 import Business from "./business";
 
-import EditProfileForm from './editBusProfileForm';
+import EditProfileForm from "./editBusProfileForm";
+
+import { connect } from "react-redux";
+
+//actions from Redux
+import { getBusProfData } from "../store/actions/index";
 
 //styles
 import "../styles/pickups.css";
@@ -53,7 +58,7 @@ let fakeProfile = {
 // Dummy Data to be ignored
 //----------------------------------------------------
 
-function BusinessProfile(props) {
+function BusinessProfile({ getBusProfData, busProf }) {
   const [profile, setProfile] = useState(fakeProfile);
   const [pickups, setPickups] = useState([]);
 
@@ -65,7 +70,7 @@ function BusinessProfile(props) {
   useEffect(() => {
     // make a GET request to fetch the data
     // pass the token with the request on the Authorization request header
-    getProfileDetails();
+    getBusProfData();
     getData();
   }, []);
 
@@ -83,21 +88,7 @@ function BusinessProfile(props) {
       .catch((err) => console.log(err));
   };
 
-  const getProfileDetails = () => {
-    axiosWithAuth()
-      .get("donors")
-      .then((res) => {
-        console.log("profile details")
-        setProfile({ address: res.data["business-address"], name: res.data["business-name"], phone: res.data["business-phone"], username: res.data["username"], id: res.data["business-id"] });
-        setTimeout(function () {
-          setIsLoaded(true);
-        }, 1000);
-      })
-      .catch((err) => console.log(err));
-  };
-
   //add pickup
- 
 
   const deleteBusProfile = () => {
     //delete profile
@@ -112,11 +103,19 @@ function BusinessProfile(props) {
 
   return (
     <div>
-      {isLoaded === false ? "loading" : <><h3>{profile.name}</h3>
-      <h3>{profile.address}</h3>
-      <h3>{profile.phone}</h3>
-      <h3>{profile.username}</h3></>}
-      {toggle ? <EditProfileForm profile={profile} setToggle={setToggle} /> : null}
+      {isLoaded === false ? (
+        "loading"
+      ) : (
+        <>
+          <h3>{busProf["business-name"]}</h3>
+          <h3>{busProf["business-address"]}</h3>
+          <h3>{busProf["business-phone"]}</h3>
+          <h3>{busProf.username}</h3>
+        </>
+      )}
+      {toggle ? (
+        <EditProfileForm profile={profile} setToggle={setToggle} />
+      ) : null}
       <h2>Current Pickups</h2>
       {isLoaded === false ? (
         "loading"
@@ -136,7 +135,16 @@ function BusinessProfile(props) {
   );
 } //end businessProfile
 
-export default BusinessProfile;
+const mapStateToProps = (state) => {
+  console.log("this is state in business-profile", state);
+  return {
+    isFetching: state.isFetching,
+    error: state.error,
+    busProf: state.busProf,
+  };
+};
+
+export default connect(mapStateToProps, { getBusProfData })(BusinessProfile);
 
 //------------------------------------------------------
 //this is for testing purposes and can be ignored

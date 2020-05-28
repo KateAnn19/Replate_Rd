@@ -5,6 +5,7 @@ import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
 import { connect } from "react-redux";
 
+//actions from Redux
 import { deletePickup } from "../store/actions";
 
 import EditPickup from "./editPickup";
@@ -25,21 +26,7 @@ function Business({ data, update, deletePickup }) {
     setIsEditing(true);
     setPickupToEdit(pickup);
   };
-  // const deletePickup = (id) => {
-  //   //delete pickup
-  //   axiosWithAuth()
-  //     .delete(`pickups/${id}`)
-  //     .then((res) => {
-  //       update();
-  //       setIsLoading(true);
-  //       push('/business-profile');
-  //         go(0)
-  //       setTimeout(function () {
-  //         setIsLoading(false);
-  //       }, 1000);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
+  
   return (
     <div className="container">
       {loading
@@ -64,7 +51,13 @@ function Business({ data, update, deletePickup }) {
               <h2>{date(p["pickup-date"]).format("ll")}</h2>
               <h2>{p["business-phone"]}</h2>
               <button onClick={() => editPickup(p)}>Edit</button>
-              <button onClick={() => deletePickup(p["pickup-id"])}>
+              <button
+                onClick={() => {
+                  deletePickup(p["pickup-id"]);
+                  push("/business-profile");
+                  go(0);
+                }}
+              >
                 Delete
               </button>
             </div>
@@ -82,8 +75,6 @@ function Business({ data, update, deletePickup }) {
   );
 } //end businessProfile
 
-
-
 const mapStateToProps = (state) => {
   console.log("this is state in business", state);
   return {
@@ -93,6 +84,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {deletePickup})(Business);
-
-
+export default connect(mapStateToProps, { deletePickup })(Business);

@@ -15,13 +15,16 @@ import "../styles/pickups.css";
 
 import EditProfileForm from "./editVolProfileForm";
 
+//Redux
+import { connect } from "react-redux";
+import { getVolProfData, deleteVolProf } from "../store/actions/index";
+
 const date = require("moment");
 
-function VolunteerProfile() {
+function VolunteerProfile({getVolProfData, volProf, deleteVolProf}) {
   const [profile, setProfile] = useState({});
   const [pickups, setPickups] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
-
   const [toggle, setToggle] = useState(false);
 
   const { push } = useHistory();
@@ -30,7 +33,8 @@ function VolunteerProfile() {
     // make a GET request to fetch the data
     // pass the token with the request on the Authorization request header
     getData();
-    getProfileDetails();
+    getVolProfData();
+    setIsLoaded(true)
   }, []);
 
   //add pickup
@@ -44,25 +48,7 @@ function VolunteerProfile() {
       })
       .catch((err) => console.log(err.response));
   };
-
-  const getProfileDetails = () => {
-    axiosWithAuth()
-      .get("volunteers")
-      .then((res) => {
-        console.log("profile details", res);
-        setProfile({
-          name: res.data["volunteer-name"],
-          phone: res.data["volunteer-phone"],
-          username: res.data["username"],
-          id: res.data["volunteer-id"],
-        });
-        setTimeout(function () {
-          setIsLoaded(true);
-        }, 1000);
-      })
-      .catch((err) => console.log(err));
-  };
-
+  
   const removePickup = (id) => {
     //delete pickup from profile
     axiosWithAuth()
@@ -77,26 +63,16 @@ function VolunteerProfile() {
       .catch((err) => console.log(err.response));
   };
 
-  const deleteVolProfile = () => {
-    //delete profile
-    axiosWithAuth()
-      .delete("volunteers")
-      .then((res) => {
-        console.log(res);
-        push("/logout");
-      })
-      .catch((err) => console.log(err));
-  };
-
+  
   return (
     <div>
       {isLoaded === false ? (
         "loading"
       ) : (
         <>
-          <h3>{profile.name}</h3>
-          <h3>{profile.phone}</h3>
-          <h3>{profile.username}</h3>
+          <h3>{volProf["volunteer-name"]}</h3>
+          <h3>{volProf["volunteer-phone"]}</h3>
+          <h3>{volProf["username"]}</h3>
         </>
       )}
       {toggle ? <EditProfileForm profile={profile} setToggle={setToggle} /> : null}
@@ -120,12 +96,29 @@ function VolunteerProfile() {
       </div>
       <button onClick={() => push("/pickup-list")}>Add Pickup</button>
       <button onClick={() => setToggle(!toggle)}>Edit Profile</button>
-      <button onClick={deleteVolProfile}>Delete Profile</button>
+      <button onClick={() => 
+        {
+        deleteVolProf()
+        push("/logout")
+        }}>Delete Profile</button>
     </div>
   );
 } //end volunteerProfile
 
-export default VolunteerProfile;
+
+const mapStateToProps = (state) => {
+  console.log("this is state in volunteer-profile", state);
+  return {
+    isFetching: state.isFetching,
+    error: state.error,
+    volProf: state.volProf,
+    deleteVolProf: state
+  };
+};
+
+export default connect(mapStateToProps, { getVolProfData, deleteVolProf })(VolunteerProfile);
+
+
 
 //----------------------------------------------------
 // for testing purposes - can be ignored

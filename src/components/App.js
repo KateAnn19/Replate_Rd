@@ -26,7 +26,6 @@ function App() {
       </nav>
       <Switch>
         <Route exact path="/" component={Login} />
-
         <Route
           path="/volunteer-registration"
           component={VolunteerRegistration}
@@ -34,12 +33,9 @@ function App() {
         <Route path="/business-registration" component={BusinessRegistration} />
         <ProtectedRoute path="/business-profile" component={BusinessProfile} />
         <Route path="/add-pickup" component={AddPickup} />
-
-        <Route path="/volunteer-profile" component={VolunteerProfile} />
+        <ProtectedRoute path="/volunteer-profile" component={VolunteerProfile} />
         <Route path="/pickup-list" component={PickUpList} />
-
         <Route path="/logout" component={Logout} />
-
         <Route path="/editPickup" component={EditPickup} />
       </Switch>
     </div>

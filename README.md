@@ -129,3 +129,81 @@ const PickUpList = () => {
       </div>
     );
   };
+
+
+
+  //-----------------------------------------------------------------------------------
+  // Functions and state that was in my components that now live in Redux
+  //-----------------------------------------------------------------------------------
+
+
+  // inside business-profile
+
+ const [profile, setProfile] = useState(fakeProfile);
+
+  // const getProfileDetails = () => {
+  //   axiosWithAuth()
+  //     .get("donors")
+  //     .then((res) => {
+  //       console.log("profile details")
+  <!-- //       setProfile({ address: res.data["business-address"], name: res.data["business-name"], phone: res.data["business-phone"], username: res.data["username"], id: res.data["business-id"] }); -->
+  //       setTimeout(function () {
+  //         setIsLoaded(true);
+  //       }, 1000);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
+
+  //inside business
+
+  // const deletePickup = (id) => {
+  //   //delete pickup
+  //   axiosWithAuth()
+  //     .delete(`pickups/${id}`)
+  //     .then((res) => {
+  //       update();
+  //       setIsLoading(true);
+  //       push('/business-profile');
+  //         go(0)
+  //       setTimeout(function () {
+  //         setIsLoading(false);
+  //       }, 1000);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
+
+  //inside volunteer-profile 
+
+const [profile, setProfile] = useState({});
+
+  // const getProfileDetails = () => {
+  //   axiosWithAuth()
+  //     .get("volunteers")
+  //     .then((res) => {
+  //       console.log("profile details", res);
+  <!-- //       setProfile({
+  //         name: res.data["volunteer-name"],
+  //         phone: res.data["volunteer-phone"],
+  //         username: res.data["username"],
+  //         id: res.data["volunteer-id"],
+  //       }); -->
+  //       setTimeout(function () {
+  //         setIsLoaded(true);
+  //       }, 1000);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
+
+  // const deleteVolProfile = () => {
+  //   //delete profile
+  //   axiosWithAuth()
+  //     .delete("volunteers")
+  //     .then((res) => {
+  //       console.log(res);
+  //       push("/logout");
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
