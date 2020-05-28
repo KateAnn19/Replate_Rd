@@ -31,19 +31,15 @@ const PickUpList = () => {
 
   const { push } = useHistory();
 
+  // the data we want displayed is 
+  // type
+  // "business-phone"
+  // "business-name"
+  // "business-address"
+  // "pickup-date" 
 
-  //make your get request here
-  //display the data 
-  //the data we want displayed is 
-  //type
-  //"business-phone"
-  //"business-name"
-  //"business-address"
-  //"pickup-date" 
-
-  //getting the data to display may be a little tricky. Remember there are two ways to access an object... with dot notation
-  //and with bracket notation. 
-
+  // getting the data to display may be a little tricky. Remember there are two ways
+  // to access an object... with dot notation and with bracket notation. 
 
   return (
     <div className='pickup-list-container' >
@@ -53,14 +49,16 @@ const PickUpList = () => {
           <div key={item['pickup-id']}>
 
             <section className='pickup-list-card' >
-              <h1 className='pickup-list-heading'>{item['business-name']}</h1>
+              <h1 className='pickup-list-heading'>{item['type']}</h1>
+
               <p className='pickup-list-details'>
+              <span id='amount'>{item['amount']}</span>
                 <span id='date'>{item['pickup-date'].slice(0, 10)}</span>
-                <span id='amount'>{item['amount']} of {item['type']}</span>
+                <span id='name'>{item['business-name']}</span>
                 <span id='address'>{item['business-address']}</span>
                 <span id='phone'>{item['business-phone']}</span>
-              </p>
-
+                </p>
+                
               <button
                 onClick={() => console.log('Pickup accepted')}>
                 Accept pickup
@@ -80,96 +78,4 @@ const PickUpList = () => {
 
 
 export default PickUpList;
-
-
-  //----------------------------------------------------
-  //this is just fake data for testing - can ignore
-  //----------------------------------------------------
-
-
-  // const onSubmit = (formData) => {
-
-  //   //   e.preventDefault()
-  //   axiosWithAuth()
-  //     .post("pickups", formData)
-  //     .then((res) => {
-  //       console.log(res)
-  //     })
-  //     .catch((err) => console.log(err.response))
-
-  //     // Clear the form
-  //     console.log(register)
-  //     reset()
-  // }
-
-
-
-  // let fakePickups = [
-  //   {
-  //     type: "Bread",
-  //     amount: "1 pound",
-  //     pickUpTime: "May 2, 2022",
-  //     business: "Target",
-  //   },
-  //   {
-  //     type: "Eggs",
-  //     amount: "2 carts",
-  //     pickUpTime: "July 4, 2023",
-  //     business: "Safeway",
-  //   },
-  //   {
-  //     type: "Chips",
-  //     amount: "16 bags",
-  //     pickUpTime: "September 2, 2022",
-  //     business: "Ikea",
-  //   },
-  //   {
-  //     type: "Soda",
-  //     amount: "2 liters",
-  //     pickUpTime: "October 2, 2022",
-  //     business: "Walmart",
-  //   },
-  // ];
-  //----------------------------------------------------
-  //this is just fake data for testing - can ignore
-  //----------------------------------------------------
-
-
-
-    //----------------------------------------------------
-  //this is just fake data for testing - can ignore
-  //----------------------------------------------------
-  // let fakePickups = [
-  //   {
-  //     type: "Bread",
-  //     amount: "1 pound",
-  //     pickUpTime: "May 2, 2022",
-  //     business: "Target",
-  //   },
-  //   {
-  //     type: "Eggs",
-  //     amount: "2 carts",
-  //     pickUpTime: "July 4, 2023",
-  //     business: "Safeway",
-  //   },
-  //   {
-  //     type: "Chips",
-  //     amount: "16 bags",
-  //     pickUpTime: "September 2, 2022",
-  //     business: "Ikea",
-  //   },
-  //   {
-  //     type: "Soda",
-  //     amount: "2 liters",
-  //     pickUpTime: "October 2, 2022",
-  //     business: "Walmart",
-  //   },
-  // ];
-  //----------------------------------------------------
-  //this is just fake data for testing - can ignore
-  //----------------------------------------------------
-
-
-
-
 
