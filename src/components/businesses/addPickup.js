@@ -56,29 +56,24 @@ const AddPickup = () => {
       <h2>Add a Pickup</h2>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor='amount'>Amount: </label>&nbsp;
         <TextField
           type='text'
           name='amount'
-          placeholder='amount'
-          inputRef={register({ required: { amountErrMessage }, minLength: 2 })} />
-        <br />
+          label='Amount'
+          inputRef={register({ required: { amountErrMessage }, minLength: 2 })} 
+          /><br />
         {errors.amount && <p>{errors.amount.message}</p>}
-        <br />
 
-        <label htmlFor='pickup-date'>Pickup Date: </label>&nbsp;
         <TextField
           type='text'
           name='pickup-date'
-          placeholder='yyyy-mm-dd'
-          inputRef={register} />
-        <br />
+          label='Pickup date yyyy-mm-dd'
+          inputRef={register} /><br />
 
-        <label htmlFor='type'>Type: </label>&nbsp;
-        <TextField
+          <TextField
           type='text'
           name='type'
-          placeholder='type of pickup'
+          label='Type of pickup'
           inputRef={register({ required: { typeErrMessage }, minLength: 5 })} />
         <br />
         {errors.type && <p>{errors.type.message}</p>}
