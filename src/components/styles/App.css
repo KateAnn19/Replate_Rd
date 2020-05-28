@@ -23,7 +23,7 @@
     margin: 0;
     background-color: lightgray;
     padding: 12px;
-    font-size: larger;
+    font-size: x-large;
 }
 
 .pickup-list-details {
@@ -39,7 +39,17 @@
 
 }
 
-#date, #amount {font-weight: bolder;}
+#amount {
+    font-weight: bolder;
+    font-size: large;
+    border-bottom: 1px solid gray;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
 
-/* #address{}
-#phone{} */
+/* 
+#address{}
+#date{}, 
+#name{}, 
+#phone{} 
+*/
