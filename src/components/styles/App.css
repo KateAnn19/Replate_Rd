@@ -2,6 +2,44 @@
     text-align: center;
 }
 
-h1, h2 {
-    font-family: 'Indie Flower', cursive;
-    }
+.pickup-list-card {
+    width: 350px;
+    /* border: 1px solid gray; */
+    border-radius: 10px;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    box-shadow: 1px 1px 18px 1px lightgray;
+}
+
+.pickup-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    /* width: 95%; */
+    margin: 5vh auto;
+}
+
+.pickup-list-heading {
+    margin: 0;
+    background-color: lightgray;
+    padding: 12px;
+    font-size: larger;
+}
+
+.pickup-list-details {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 80%;
+    margin: 0 auto;
+    padding: 15px 0;
+}
+
+.pickup-list-buttons {
+
+}
+
+#date, #amount {font-weight: bolder;}
+
+/* #address{}
+#phone{} */
