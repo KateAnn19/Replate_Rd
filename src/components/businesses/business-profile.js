@@ -14,16 +14,18 @@ import EditPickup from "./editPickup";
 
 import Business from "./business";
 
+import EditProfileForm from './editBusProfileForm';
+
 //styles
 import "../styles/pickups.css";
 
 const d = require("moment");
 
 let fakeProfile = {
-  name: "Ikea",
-  username: "Ikea-Gives",
-  phone: "777-333-2222",
-  address: "2 Swedish Lande, CA 7315",
+  name: "",
+  username: "",
+  phone: "",
+  address: "",
   role: "donor",
 };
 
@@ -54,46 +56,48 @@ let fakeProfile = {
 function BusinessProfile(props) {
   const [profile, setProfile] = useState(fakeProfile);
   const [pickups, setPickups] = useState([]);
-  
+
   const [isLoaded, setIsLoaded] = useState(false);
   const { push } = useHistory();
+
+  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     // make a GET request to fetch the data
     // pass the token with the request on the Authorization request header
-    //getProfileDetails();
-    //getData();
+    getProfileDetails();
+    getData();
+  }, []);
+
+  const getData = () => {
+    console.log("calling update");
     axiosWithAuth()
       .get("pickups")
       .then((res) => {
         console.log(res);
         setPickups([...res.data]);
-        
         setTimeout(function () {
           setIsLoaded(true);
         }, 1000);
       })
       .catch((err) => console.log(err));
-  }, []);
-
-  const getData = () => {
-    console.log("calling update");
-    
   };
 
   const getProfileDetails = () => {
     axiosWithAuth()
-      .put("donor")
+      .get("donors")
       .then((res) => {
-        console.log(res);
+        console.log("profile details")
+        setProfile({ address: res.data["business-address"], name: res.data["business-name"], phone: res.data["business-phone"], username: res.data["username"], id: res.data["business-id"] });
+        setTimeout(function () {
+          setIsLoaded(true);
+        }, 1000);
       })
       .catch((err) => console.log(err));
   };
 
   //add pickup
-  const editBusProfile = () => {
-    //edit profile
-  };
+ 
 
   const deleteBusProfile = () => {
     //delete profile
@@ -101,17 +105,18 @@ function BusinessProfile(props) {
       .delete("donors")
       .then((res) => {
         console.log(res);
-        push('/logout')
+        push("/logout");
       })
       .catch((err) => console.log(err));
   };
 
   return (
     <div>
-      <h3>{profile.name}</h3>
+      {isLoaded === false ? "loading" : <><h3>{profile.name}</h3>
       <h3>{profile.address}</h3>
       <h3>{profile.phone}</h3>
-      <h3>{profile.username}</h3>
+      <h3>{profile.username}</h3></>}
+      {toggle ? <EditProfileForm profile={profile} setToggle={setToggle} /> : null}
       <h2>Current Pickups</h2>
       {isLoaded === false ? (
         "loading"
@@ -125,7 +130,7 @@ function BusinessProfile(props) {
       )}
 
       <button onClick={() => push("/add-pickup")}>Add Pickup</button>
-      <button onClick={editBusProfile}>Edit Profile</button>
+      <button onClick={() => setToggle(!toggle)}>Edit Profile</button>
       <button onClick={deleteBusProfile}>Delete Profile</button>
     </div>
   );

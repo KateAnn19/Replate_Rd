@@ -13,42 +13,16 @@ import { useHistory } from "react-router-dom";
 //styles
 import "../styles/pickups.css";
 
+import EditProfileForm from "./editVolProfileForm";
+
 const date = require("moment");
 
-let fakeProfile = {
-  name: "Tracy",
-  username: "Tracy-Volunteers",
-  phone: "909-808-1010",
-  role: "volunteer",
-};
-
-// ---------------------------------------------------
-// Dummy Data to be ignored
-//----------------------------------------------------
-// let fakePickups = [
-//   {
-//     type: "Bread",
-//     amount: "2 pounds",
-//     pickupTime: "May 3, 2022",
-//   },
-//   {
-//     type: "Fruit",
-//     amount: "6 pounds",
-//     pickupTime: "June 5, 2022",
-//   },
-//   {
-//     type: "Cereal",
-//     amount: "5 pounds",
-//     pickupTime: "June 23, 2022",
-//   },
-// ];
-// ---------------------------------------------------
-// Dummy Data to be ignored
-//----------------------------------------------------
-
 function VolunteerProfile() {
-  const [profile, setProfile] = useState(fakeProfile);
+  const [profile, setProfile] = useState({});
   const [pickups, setPickups] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const [toggle, setToggle] = useState(false);
 
   const { push } = useHistory();
 
@@ -75,17 +49,32 @@ function VolunteerProfile() {
     axiosWithAuth()
       .get("volunteers")
       .then((res) => {
-        console.log(res);
+        console.log("profile details", res);
+        setProfile({
+          name: res.data["volunteer-name"],
+          phone: res.data["volunteer-phone"],
+          username: res.data["username"],
+          id: res.data["volunteer-id"],
+        });
+        setTimeout(function () {
+          setIsLoaded(true);
+        }, 1000);
       })
       .catch((err) => console.log(err));
   };
 
-  const deletePickup = () => {
+  const removePickup = (id) => {
     //delete pickup from profile
-  };
-
-  const editVolProfile = () => {
-    //edit profile
+    axiosWithAuth()
+      .put(`pickups/assign/${id}`, {
+        "volunteer-id": "",
+      })
+      .then((res) => {
+        console.log(res);
+        getData();
+     push("/volunteer-profile");
+      })
+      .catch((err) => console.log(err.response));
   };
 
   const deleteVolProfile = () => {
@@ -94,18 +83,25 @@ function VolunteerProfile() {
       .delete("volunteers")
       .then((res) => {
         console.log(res);
-        push('/logout')
+        push("/logout");
       })
       .catch((err) => console.log(err));
   };
 
   return (
     <div>
-      <h3>{profile.name}</h3>
-      <h3>{profile.phone}</h3>
-      <h3>{profile.username}</h3>
+      {isLoaded === false ? (
+        "loading"
+      ) : (
+        <>
+          <h3>{profile.name}</h3>
+          <h3>{profile.phone}</h3>
+          <h3>{profile.username}</h3>
+        </>
+      )}
+      {toggle ? <EditProfileForm profile={profile} setToggle={setToggle} /> : null}
       <h2>Current Pickups</h2>
-      <div className="container">
+      <div className="Vols-Picks">
         {pickups.map((pickup) => (
           <div key={pickup["pickup-id"]} className="pickups">
             <div className="pickups-container">
@@ -116,12 +112,14 @@ function VolunteerProfile() {
               <h2>{pickup["amount"]}</h2>
               <h2>{date(pickup["pickup-date"]).format("ll")}</h2>
             </div>
-            <button>Delete</button>
+            <button onClick={() => removePickup(pickup["pickup-id"])}>
+              Delete
+            </button>
           </div>
         ))}
       </div>
       <button onClick={() => push("/pickup-list")}>Add Pickup</button>
-      <button onClick={editVolProfile}>Edit Profile</button>
+      <button onClick={() => setToggle(!toggle)}>Edit Profile</button>
       <button onClick={deleteVolProfile}>Delete Profile</button>
     </div>
   );
