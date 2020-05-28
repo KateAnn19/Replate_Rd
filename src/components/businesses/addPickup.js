@@ -88,11 +88,6 @@ const AddPickup = () => {
           <Button type='button' onClick={goBack}>Return To Profile</Button>
         </ButtonGroup>
       </form>
-      {/*      
-      <button onClick={() => push("/business-profile")}>
-        Return To Profile
-      </button>
-*/}
     </div>
   );
 };
