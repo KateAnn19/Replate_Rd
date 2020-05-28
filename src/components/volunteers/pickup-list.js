@@ -46,26 +46,34 @@ const PickUpList = () => {
 
 
   return (
-    <div>
+    <div className='pickup-list-container' >
+
       {pickupList.map(item => {
         return (
           <div key={item['pickup-id']}>
-            <h1>{item['business-name']}</h1>
-            <p>{item['business-address']}<br />
-              {item['business-phone']}<br />
-              {item['amount']} of {item['type']}<br />
-              {item['pickup-date'].slice(0, 10)}</p>
+
+            <section className='pickup-list-card' >
+              <h1 className='pickup-list-heading'>{item['business-name']}</h1>
+              <p className='pickup-list-details'>
+                <span id='date'>{item['pickup-date'].slice(0, 10)}</span>
+                <span id='amount'>{item['amount']} of {item['type']}</span>
+                <span id='address'>{item['business-address']}</span>
+                <span id='phone'>{item['business-phone']}</span>
+              </p>
+
+              <button
+                onClick={() => console.log('Pickup accepted')}>
+                Accept pickup
+                </button>
+
+              <button
+                onClick={() => push("/volunteer-profile")}>
+                Back to Profile
+              </button>
+
+            </section>
           </div>)
       })}
-      <button
-        onClick={() => console.log('Pickup accepted')}>
-        Accept pickup
-      </button>
-
-      <button
-        onClick={() => push("/volunteer-profile")}>
-        Back to Profile
-    </button>
     </div>
   );
 };
