@@ -2,18 +2,80 @@ import {
   DELETE_PICKUP_START,
   DELETE_PICKUP_SUCCESS,
   DELETE_PICKUP_FAILURE,
+  GET_BUSPROFDETAILS_START,
+  GET_BUSPROFDETAILS_SUCCESS,
+  GET_BUSPROFDETAILS_FAILURE,
+  GET_VOLPROFDETAILS_START,
+  GET_VOLPROFDETAILS_SUCCESS,
+  GET_VOLPROFDETAILS_FAILURE,
+  DELETE_VOLPROFILE_START,
+  DELETE_VOLPROFILE_SUCCESS,
+  DELETE_VOLPROFILE_FAILURE,
+
 } from "../actions";
 
 export const initialState = {
   isFetching: false,
   pickups: [],
   error: "",
+  busProf: {},
+  volProf: {}
 };
 
 export const replateReducer = (state = initialState, action) => {
   console.log("in replate reducer", state);
   console.log("in replate reducer action", action);
   switch (action.type) {
+    case GET_BUSPROFDETAILS_START:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case GET_BUSPROFDETAILS_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        busProf: action.payload,
+      };
+    case GET_BUSPROFDETAILS_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.payload,
+      };
+    case GET_VOLPROFDETAILS_START:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case GET_VOLPROFDETAILS_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        volProf: action.payload,
+      };
+    case GET_VOLPROFDETAILS_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.payload,
+      };
+      case DELETE_VOLPROFILE_START:
+        return {
+          ...state,
+          isFetching: true,
+        };
+      case DELETE_VOLPROFILE_SUCCESS:
+        return {
+          ...state,
+          isFetching: false
+        };
+      case DELETE_VOLPROFILE_FAILURE:
+        return {
+          ...state,
+          isFetching: false,
+          error: action.payload,
+        };
     case DELETE_PICKUP_START:
       return {
         ...state,

@@ -19,6 +19,8 @@ const AddPickup = () => {
     }
   })
 
+  const { push } = useHistory();
+
   // register attaches our fields to the state by use of the 'ref' attribute of the field
   // Because I we are using Material UI, inputRef replaces the ref attribute when using
   // the useForm hook to manage the form
@@ -32,6 +34,7 @@ const AddPickup = () => {
       .post("pickups", formData)
       .then((res) => {
         console.log(res)
+        push('/business-profile')
       })
       .catch((err) => console.log(err.response))
 

@@ -1,9 +1,27 @@
 import axios from "axios";
-import {axiosWithAuth} from "../../../utils/axiosWithAuth";
+import { axiosWithAuth } from "../../../utils/axiosWithAuth";
+
+export const GET_BUSPROFDETAILS_START = "GET_BUSPROFDETAILS_START";
+export const GET_BUSPROFDETAILS_SUCCESS = "GET_BUSPROFDETAILS_SUCCESS";
+export const GET_BUSPROFDETAILS_FAILURE = "GET_BUSPROFDETAILS_FAILURE";
+
+export const DELETE_BUSPROFILE_START = "GET_BUSPROFILE_START";
+export const DELETE_BUSPROFILE_SUCCESS = "GET_BUSPROFILE_SUCCESS";
+export const DELETE_BUSPROFILE_FAILURE = "GET_BUSPROFILE_FAILURE";
 
 export const DELETE_PICKUP_START = "DELETE_PICKUP_START";
 export const DELETE_PICKUP_SUCCESS = "DELETE_PICKUP_SUCCESS";
 export const DELETE_PICKUP_FAILURE = "DELETE_PICKUP_FAILURE";
+
+
+export const GET_VOLPROFDETAILS_START = "GET_VOLPROFDETAILS_START";
+export const GET_VOLPROFDETAILS_SUCCESS = "GET_VOLPROFDETAILS_SUCCESS";
+export const GET_VOLPROFDETAILS_FAILURE = "GET_VOLPROFDETAILS_FAILURE";
+
+export const DELETE_VOLPROFILE_START = "GET_VOLPROFILE_START";
+export const DELETE_VOLPROFILE_SUCCESS = "GET_VOLPROFILE_SUCCESS";
+export const DELETE_VOLPROFILE_FAILURE = "GET_VOLPROFILE_FAILURE";
+
 
 export const deletePickup = (id) => {
   // make an async request
@@ -21,3 +39,57 @@ export const deletePickup = (id) => {
       });
   };
 };
+
+export const getBusProfData = () => {
+  return (dispatch) => {
+    dispatch({ type: GET_BUSPROFDETAILS_START });
+    // then make the async call
+    axiosWithAuth()
+      .get("donors")
+      .then((res) => {
+        console.log("Inside Get", res);
+        dispatch({ type: GET_BUSPROFDETAILS_SUCCESS, payload: res.data });
+      })
+      .catch((err) => {
+        dispatch({ type: GET_BUSPROFDETAILS_FAILURE, payload: err });
+      });
+  };
+}
+
+  
+
+
+export const getVolProfData = () => {
+  return (dispatch) => {
+    dispatch({ type: GET_VOLPROFDETAILS_START });
+    // then make the async call
+    axiosWithAuth()
+      .get("volunteers")
+      .then((res) => {
+        console.log("Inside Get", res);
+        dispatch({ type: GET_VOLPROFDETAILS_SUCCESS, payload: res.data });
+      })
+      .catch((err) => {
+        dispatch({ type: GET_VOLPROFDETAILS_FAILURE, payload: err });
+      });
+  };
+};
+
+
+export const deleteVolProf = () => {
+  //delete profile
+  return dispatch => {
+    dispatch({type: DELETE_VOLPROFILE_START});
+    axiosWithAuth()
+    .delete("volunteers")
+    .then((res) => {
+      dispatch({ type: DELETE_VOLPROFILE_SUCCESS});
+    })
+    .catch(err => {
+      dispatch({type: DELETE_VOLPROFILE_FAILURE, payload: err});
+  })
+  }
+};
+
+
+
