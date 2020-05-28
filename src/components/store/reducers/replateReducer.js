@@ -5,13 +5,15 @@ import {
   GET_BUSPROFDETAILS_START,
   GET_BUSPROFDETAILS_SUCCESS,
   GET_BUSPROFDETAILS_FAILURE,
+  DELETE_BUSPROFILE_START,
+  DELETE_BUSPROFILE_SUCCESS,
+  DELETE_BUSPROFILE_FAILURE,
   GET_VOLPROFDETAILS_START,
   GET_VOLPROFDETAILS_SUCCESS,
   GET_VOLPROFDETAILS_FAILURE,
   DELETE_VOLPROFILE_START,
   DELETE_VOLPROFILE_SUCCESS,
   DELETE_VOLPROFILE_FAILURE,
-
 } from "../actions";
 
 export const initialState = {
@@ -19,7 +21,7 @@ export const initialState = {
   pickups: [],
   error: "",
   busProf: {},
-  volProf: {}
+  volProf: {},
 };
 
 export const replateReducer = (state = initialState, action) => {
@@ -60,22 +62,38 @@ export const replateReducer = (state = initialState, action) => {
         isFetching: false,
         error: action.payload,
       };
-      case DELETE_VOLPROFILE_START:
-        return {
-          ...state,
-          isFetching: true,
-        };
-      case DELETE_VOLPROFILE_SUCCESS:
-        return {
-          ...state,
-          isFetching: false
-        };
-      case DELETE_VOLPROFILE_FAILURE:
-        return {
-          ...state,
-          isFetching: false,
-          error: action.payload,
-        };
+    case DELETE_VOLPROFILE_START:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case DELETE_VOLPROFILE_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+      };
+    case DELETE_VOLPROFILE_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.payload,
+      };
+    case DELETE_BUSPROFILE_START:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case DELETE_BUSPROFILE_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+      };
+    case DELETE_BUSPROFILE_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.payload,
+      };
     case DELETE_PICKUP_START:
       return {
         ...state,
