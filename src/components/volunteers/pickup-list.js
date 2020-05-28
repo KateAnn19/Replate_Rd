@@ -59,7 +59,8 @@ const PickUpList = () => {
     })}    
     <button onClick={() => push("/volunteer-profile")}>
     Back to Profile
-    </button>
+    </button>&nbsp;
+    <button onClick={() => console.log('Pickup accepted')}>Accept pickup</button>
     </div>
     );
   };
