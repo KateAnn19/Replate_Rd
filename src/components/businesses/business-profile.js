@@ -19,7 +19,7 @@ import EditProfileForm from "./editBusProfileForm";
 import { connect } from "react-redux";
 
 //actions from Redux
-import { getBusProfData } from "../store/actions/index";
+import { getBusProfData, deleteBusProf } from "../store/actions/index";
 
 //styles
 import "../styles/pickups.css";
@@ -58,7 +58,7 @@ let fakeProfile = {
 // Dummy Data to be ignored
 //----------------------------------------------------
 
-function BusinessProfile({ getBusProfData, busProf }) {
+function BusinessProfile({ getBusProfData, busProf, deleteBusProf }) {
   const [profile, setProfile] = useState(fakeProfile);
   const [pickups, setPickups] = useState([]);
 
@@ -90,17 +90,6 @@ function BusinessProfile({ getBusProfData, busProf }) {
 
   //add pickup
 
-  const deleteBusProfile = () => {
-    //delete profile
-    axiosWithAuth()
-      .delete("donors")
-      .then((res) => {
-        console.log(res);
-        push("/logout");
-      })
-      .catch((err) => console.log(err));
-  };
-
   return (
     <div>
       {isLoaded === false ? (
@@ -130,7 +119,14 @@ function BusinessProfile({ getBusProfData, busProf }) {
 
       <button onClick={() => push("/add-pickup")}>Add Pickup</button>
       <button onClick={() => setToggle(!toggle)}>Edit Profile</button>
-      <button onClick={deleteBusProfile}>Delete Profile</button>
+      <button
+        onClick={() => {
+          deleteBusProf();
+          push("/logout");
+        }}
+      >
+        Delete Profile
+      </button>
     </div>
   );
 } //end businessProfile
@@ -144,7 +140,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getBusProfData })(BusinessProfile);
+export default connect(mapStateToProps, { getBusProfData, deleteBusProf })(BusinessProfile);
 
 //------------------------------------------------------
 //this is for testing purposes and can be ignored

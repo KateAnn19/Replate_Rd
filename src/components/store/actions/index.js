@@ -5,9 +5,11 @@ export const GET_BUSPROFDETAILS_START = "GET_BUSPROFDETAILS_START";
 export const GET_BUSPROFDETAILS_SUCCESS = "GET_BUSPROFDETAILS_SUCCESS";
 export const GET_BUSPROFDETAILS_FAILURE = "GET_BUSPROFDETAILS_FAILURE";
 
-export const DELETE_BUSPROFILE_START = "GET_BUSPROFILE_START";
-export const DELETE_BUSPROFILE_SUCCESS = "GET_BUSPROFILE_SUCCESS";
-export const DELETE_BUSPROFILE_FAILURE = "GET_BUSPROFILE_FAILURE";
+export const DELETE_BUSPROFILE_START = "DELETE_BUSPROFILE_START";
+export const DELETE_BUSPROFILE_SUCCESS = "DELETE_BUSPROFILE_SUCCESS";
+export const DELETE_BUSPROFILE_FAILURE = "DELETE_BUSPROFILE_FAILURE";
+
+
 
 export const DELETE_PICKUP_START = "DELETE_PICKUP_START";
 export const DELETE_PICKUP_SUCCESS = "DELETE_PICKUP_SUCCESS";
@@ -56,7 +58,21 @@ export const getBusProfData = () => {
   };
 }
 
-  
+export const deleteBusProf = () => {
+  //delete profile
+  return dispatch => {
+    dispatch({type: DELETE_BUSPROFILE_START});
+    axiosWithAuth()
+    .delete("donors")
+    .then((res) => {
+      dispatch({ type: DELETE_BUSPROFILE_SUCCESS});
+    })
+    .catch(err => {
+      dispatch({type: DELETE_BUSPROFILE_FAILURE, payload: err});
+  })
+  }
+};
+ 
 
 
 export const getVolProfData = () => {

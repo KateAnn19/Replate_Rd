@@ -75,17 +75,8 @@ const AddPickup = () => {
   export default AddPickup;
   
 
-
-
 //pickup list get --- testing purposes only 
 
-
-
-
-
-
-
-  
 
     --------------------------------------
     for addPickup 
@@ -153,6 +144,21 @@ const PickUpList = () => {
   //     })
   //     .catch((err) => console.log(err));
   // };
+
+
+
+const deleteBusProfile = () => {
+    //delete profile
+    axiosWithAuth()
+      .delete("donors")
+      .then((res) => {
+        console.log(res);
+        push("/logout");
+      })
+      .catch((err) => console.log(err));
+  };
+
+
 
 
   //inside business
