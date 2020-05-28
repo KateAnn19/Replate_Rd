@@ -24,52 +24,12 @@ const PickUpList = () => {
     axiosWithAuth()
     .get("/pickups/unassigned")
     .then((res) => {
-      console.log('Pickup List', res);
-      // setPickupList(res)
+      setPickupList(res.data)
     })
     .catch((err) => console.error(err));
   };
   
   const { push } = useHistory();
-
-  
-  //----------------------------------------------------
-  //this is just fake data for testing - can ignore
-  //----------------------------------------------------
-  // let fakePickups = [
-  //   {
-  //     type: "Bread",
-  //     amount: "1 pound",
-  //     pickUpTime: "May 2, 2022",
-  //     business: "Target",
-  //   },
-  //   {
-  //     type: "Eggs",
-  //     amount: "2 carts",
-  //     pickUpTime: "July 4, 2023",
-  //     business: "Safeway",
-  //   },
-  //   {
-  //     type: "Chips",
-  //     amount: "16 bags",
-  //     pickUpTime: "September 2, 2022",
-  //     business: "Ikea",
-  //   },
-  //   {
-  //     type: "Soda",
-  //     amount: "2 liters",
-  //     pickUpTime: "October 2, 2022",
-  //     business: "Walmart",
-  //   },
-  // ];
-  //----------------------------------------------------
-  //this is just fake data for testing - can ignore
-  //----------------------------------------------------
-
-
-
-
-
 
 
   //make your get request here
@@ -85,13 +45,18 @@ const PickUpList = () => {
   //and with bracket notation. 
   
   
-  
-  console.log('Just before the return. No axios data')
-  
   return (
     <div> 
-    
-    
+    {pickupList.map(item => {
+      return (
+        <div key={item['pickup-id']}>
+        <h1>{item['business-name']}</h1>
+        <p>{item['business-address']}<br />
+        {item['business-phone']}<br />
+        {item['amount']} of {item['type']}<br />
+        {item['pickup-date'].slice(0,10)}</p>
+        </div>)
+    })}    
     <button onClick={() => push("/volunteer-profile")}>
     Back to Profile
     </button>
@@ -154,3 +119,43 @@ const PickUpList = () => {
   //----------------------------------------------------
   //this is just fake data for testing - can ignore
   //----------------------------------------------------
+
+
+
+    //----------------------------------------------------
+  //this is just fake data for testing - can ignore
+  //----------------------------------------------------
+  // let fakePickups = [
+  //   {
+  //     type: "Bread",
+  //     amount: "1 pound",
+  //     pickUpTime: "May 2, 2022",
+  //     business: "Target",
+  //   },
+  //   {
+  //     type: "Eggs",
+  //     amount: "2 carts",
+  //     pickUpTime: "July 4, 2023",
+  //     business: "Safeway",
+  //   },
+  //   {
+  //     type: "Chips",
+  //     amount: "16 bags",
+  //     pickUpTime: "September 2, 2022",
+  //     business: "Ikea",
+  //   },
+  //   {
+  //     type: "Soda",
+  //     amount: "2 liters",
+  //     pickUpTime: "October 2, 2022",
+  //     business: "Walmart",
+  //   },
+  // ];
+  //----------------------------------------------------
+  //this is just fake data for testing - can ignore
+  //----------------------------------------------------
+
+
+
+
+
