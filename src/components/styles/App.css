@@ -35,9 +35,9 @@
     padding: 15px 0;
 }
 
-.pickup-list-buttons {
+/* .pickup-list-buttons {
 
-}
+} */
 
 #amount {
     font-weight: bolder;
@@ -47,9 +47,12 @@
     margin-bottom: 10px;
 }
 
+#date {
+    margin-bottom: 10px;
+}
+
 /* 
 #address{}
-#date{}, 
 #name{}, 
 #phone{} 
 */
