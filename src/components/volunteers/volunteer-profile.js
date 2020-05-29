@@ -75,7 +75,7 @@ function VolunteerProfile({getVolProfData, volProf, deleteVolProf}) {
           <h3>{volProf["username"]}</h3>
         </>
       )}
-      {toggle ? <EditProfileForm profile={profile} setToggle={setToggle} /> : null}
+      {toggle ? <EditProfileForm profile={volProf} setToggle={setToggle} /> : null}
       <h2>Current Pickups</h2>
       <div className="Vols-Picks">
         {pickups.map((pickup) => (

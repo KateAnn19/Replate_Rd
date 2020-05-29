@@ -103,7 +103,7 @@ function BusinessProfile({ getBusProfData, busProf, deleteBusProf }) {
         </>
       )}
       {toggle ? (
-        <EditProfileForm profile={profile} setToggle={setToggle} />
+        <EditProfileForm profile={busProf} setToggle={setToggle} />
       ) : null}
       <h2>Current Pickups</h2>
       {isLoaded === false ? (

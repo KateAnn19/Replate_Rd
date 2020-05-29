@@ -24,6 +24,9 @@ export const DELETE_VOLPROFILE_START = "GET_VOLPROFILE_START";
 export const DELETE_VOLPROFILE_SUCCESS = "GET_VOLPROFILE_SUCCESS";
 export const DELETE_VOLPROFILE_FAILURE = "GET_VOLPROFILE_FAILURE";
 
+export const POST_LOGIN_CREDENTIALS_START = "POST_LOGIN_CREDENTIALS_START";
+export const POST_LOGIN_CREDENTIALS_SUCCESS = "POST_LOGIN_CREDENTIALS_SUCCESS";
+export const POST_LOGIN_CREDENTIALS_FAILURE = "POST_LOGIN_CREDENTIALS_FAILURE";
 
 export const deletePickup = (id) => {
   // make an async request
@@ -107,5 +110,39 @@ export const deleteVolProf = () => {
   }
 };
 
+export const login = (loginInfo) => {
+  //delete profile
+  console.log("here is login info", loginInfo)
+  return dispatch => {
+    dispatch({type: POST_LOGIN_CREDENTIALS_START});
+    axiosWithAuth()
+    .post("auth/login", loginInfo)
+    .then((res) => {
+      console.log("THIS IS RESPONSE",res)
+      dispatch({ type: POST_LOGIN_CREDENTIALS_SUCCESS, payload: res.data.token});
+    })
+    .catch(err => {
+      dispatch({type: POST_LOGIN_CREDENTIALS_FAILURE, payload: err});
+  })
+  }
+};
 
 
+// const login = (e) => {
+//   e.preventDefault();
+//   axiosWithAuth()
+//     .post("auth/login", loginInfo)
+//     .then((res) => {
+//       console.log(res)
+//       localStorage.setItem("token", res.data.token);
+//       console.log(localStorage.getItem("token"))
+//       //if volunteer push to volunteer profile
+//       //if business push to business profile
+//       // eslint-disable-next-line no-lone-blocks
+      
+//       // eslint-disable-next-line no-lone-blocks
+//       {loginInfo.role === 'business' ? push("/business-profile") : push("/volunteer-profile")} //we will want to push to volunteer page if volunteer and donor page if donor
+      
+//     })
+//     .catch((err) => console.log(loginInfo.error));
+// };

@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
-const EditProfileForm = ({setToggle, profile}) => {
-    const [editProfile, setEditedProfile] = useState(profile);
+const EditProfileForm = ({ setToggle, profile }) => {
+  const [editProfile, setEditedProfile] = useState({
+    name: profile["volunteer-name"],
+    phone: profile["volunteer-phone"],
+    id: profile["volunteer-id"],
+  });
   const { push } = useHistory();
   console.log("HERE", profile);
 
@@ -21,16 +25,15 @@ const EditProfileForm = ({setToggle, profile}) => {
   const editVolProfile = () => {
     //edit profile
     axiosWithAuth()
-    .put('volunteers', editProfile)
-    .then((res) => {
-      console.log(res)
-      //getData()
-      //add a successfully assigned to profile message
-     push("/volunteer-profile");
-    })
-    .catch((err) => console.log(err.response))
+      .put("volunteers", editProfile)
+      .then((res) => {
+        console.log(res);
+        //getData()
+        //add a successfully assigned to profile message
+        push("/volunteer-profile");
+      })
+      .catch((err) => console.log(err.response));
   };
-
 
   return (
     <div className="">
