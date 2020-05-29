@@ -5,12 +5,17 @@
 }
 
 .custom-btn-toolbar {
-    display: inline !important;
+    /* display: inline !important; */
   }
   
   .custom-btn-toolbar > .btn {
     margin-left: 5rem;
-    margin-right: 10rem;
+    margin-right: 5rem;
+    
+  }
+
+  .jumbotron{
+      width: 100%;
   }
 
 .pickup-list-card {

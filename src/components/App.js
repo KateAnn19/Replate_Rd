@@ -29,11 +29,7 @@ import Button from "react-bootstrap/Button";
 import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import { LinkContainer } from "react-router-bootstrap";
 
-const Home = () => <span>Home</span>;
 
-const About = () => <span>Register</span>;
-
-const Users = () => <span>Login</span>;
 
 function App() {
   return (
