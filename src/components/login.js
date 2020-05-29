@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { useHistory, useParams } from "react-router-dom";
 
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+
 //styles
 import "./styles/login.css";
 
 import { connect } from "react-redux";
 import { login } from "./store/actions/index";
+import classes from "*.module.css";
 
 let initialState = {
   username: "",
@@ -14,9 +18,19 @@ let initialState = {
   role: "",
 };
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+}));
+
 const Login = () => {
   const { push } = useHistory();
   const [loginInfo, setLoginInfo] = useState(initialState);
+
+  const classes = useStyles();
 
   const handleChange = (e) => {
     setLoginInfo({
@@ -25,7 +39,7 @@ const Login = () => {
     });
   };
   console.log("This is login form", loginInfo);
- 
+
   const login = (e) => {
     e.preventDefault();
     axiosWithAuth()
@@ -48,7 +62,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="Login-Form">
       <h1 className="replate-header">Replate</h1>
       <form className="login" onSubmit={login}>
         <input
@@ -78,12 +92,18 @@ const Login = () => {
       <h2>Login</h2>
       <h2>New to Replate?</h2>
       <h2>Register Below</h2>
-      <button onClick={() => push("/business-registration")}>
-        Register as a Business
-      </button>
-      <button onClick={() => push("/volunteer-registration")}>
-        Sign Up as a Volunteer
-      </button>
+      <div className={classes.root}>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => push("/business-registration")}
+        >
+          Register as a Business
+        </Button>
+        <Button onClick={() => push("/volunteer-registration")}>
+          Sign Up as a Volunteer
+        </Button>
+      </div>
     </div>
   );
 };

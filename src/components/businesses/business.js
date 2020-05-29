@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
+import DeleteIcon from "@material-ui/icons/Delete";
+import IconButton from "@material-ui/core/IconButton";
+
 import { connect } from "react-redux";
 
 //actions from Redux
@@ -26,7 +29,7 @@ function Business({ data, update, deletePickup }) {
     setIsEditing(true);
     setPickupToEdit(pickup);
   };
-  
+
   return (
     <div className="container">
       {loading
@@ -51,7 +54,7 @@ function Business({ data, update, deletePickup }) {
               <h2>{date(p["pickup-date"]).format("ll")}</h2>
               <h2>{p["business-phone"]}</h2>
               <button onClick={() => editPickup(p)}>Edit</button>
-              <button
+              {/* <button
                 onClick={() => {
                   deletePickup(p["pickup-id"]);
                   push("/business-profile");
@@ -59,7 +62,17 @@ function Business({ data, update, deletePickup }) {
                 }}
               >
                 Delete
-              </button>
+              </button> */}
+              <IconButton
+                aria-label="Delete"
+                onClick={() => {
+                  deletePickup(p["pickup-id"]);
+                  push("/business-profile");
+                  go(0);
+                }}
+              >
+                <DeleteIcon />
+              </IconButton>
             </div>
           ))}
 

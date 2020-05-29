@@ -10,6 +10,9 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
+import DeleteIcon from "@material-ui/icons/Delete";
+import IconButton from "@material-ui/core/IconButton";
+
 import EditPickup from "./editPickup";
 
 import Business from "./business";
@@ -119,6 +122,7 @@ function BusinessProfile({ getBusProfData, busProf, deleteBusProf }) {
 
       <button onClick={() => push("/add-pickup")}>Add Pickup</button>
       <button onClick={() => setToggle(!toggle)}>Edit Profile</button>
+
       <button
         onClick={() => {
           deleteBusProf();
@@ -140,7 +144,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getBusProfData, deleteBusProf })(BusinessProfile);
+export default connect(mapStateToProps, { getBusProfData, deleteBusProf })(
+  BusinessProfile
+);
 
 //------------------------------------------------------
 //this is for testing purposes and can be ignored
