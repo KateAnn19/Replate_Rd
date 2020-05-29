@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 
 import { useHistory } from "react-router-dom"; //this can be used to easily navigate to a certain page
 
+import { Button } from '@material-ui/core'; // Material UI styled button
+
 // this is so the request is authenticated. Look at the addPickup form you created to see how to correctly implement this on your get request 
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
@@ -30,7 +32,7 @@ const PickUpList = () => {
       .catch((err) => console.error(err));
   };
 
-  const { push } = useHistory();
+  const { push, goBack } = useHistory();
 
   // the data we want displayed is 
   // type
@@ -43,7 +45,15 @@ const PickUpList = () => {
   // to access an object... with dot notation and with bracket notation. 
 
   return (
-    <PickupCard pickupList={pickupList}/>
+    <section>
+      <PickupCard pickupList={pickupList} />
+      <Button
+        variant='contained'
+        color='default'
+        aria-label='text default button group'
+        onClick={goBack}>
+        Return to Profile</Button>
+    </section>
   );
 };
 
