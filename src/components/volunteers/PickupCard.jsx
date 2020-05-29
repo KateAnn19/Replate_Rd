@@ -2,7 +2,10 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import '../styles/App.css'
 
+import {axiosWithAuth} from '../../utils/axiosWithAuth';
+
 const PickupCard = ({pickupList}) => {
+  
   const history = useHistory()
   return (
     <div className='pickup-list-container' >
@@ -23,7 +26,19 @@ const PickupCard = ({pickupList}) => {
               </p>
 
               <button
-                onClick={() => console.log('Pickup accepted')}>
+                onClick={() =>
+                  //e.preventDefault()
+                  //console.log(pickup["pickup-id"])
+                  axiosWithAuth()
+                    .put(`pickups/assign/${item["pickup-id"]}`, {
+                      "volunteer-id": "assign",
+                    })
+                    .then((res) => {
+                      //add a successfully assigned to profile message
+                      history.push("/volunteer-profile");
+                    })
+                    .catch((err) => console.log(err.response))
+                }>
                 Accept pickup
               </button>
 

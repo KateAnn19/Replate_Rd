@@ -1,5 +1,7 @@
 .App{
     text-align: center;
+    background-color: honeydew;
+    height: 100vh;
 }
 
 .pickup-list-card {
