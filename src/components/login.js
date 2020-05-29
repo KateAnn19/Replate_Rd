@@ -3,7 +3,7 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { useHistory, useParams } from "react-router-dom";
 
 //styles
-// import "./login.css";
+import "./styles/login.css";
 
 import { connect } from "react-redux";
 import { login } from "./store/actions/index";
@@ -33,7 +33,6 @@ const Login = () => {
       .then((res) => {
         console.log("This is response", res);
         localStorage.setItem("token", res.data.token);
-        console.log(localStorage.getItem("token"));
         //if volunteer push to volunteer profile
         //if business push to business profile
         // eslint-disable-next-line no-lone-blocks

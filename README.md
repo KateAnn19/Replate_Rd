@@ -213,3 +213,23 @@ const [profile, setProfile] = useState({});
   //     })
   //     .catch((err) => console.log(err));
   // };
+
+
+  // const login = (e) => {
+//   e.preventDefault();
+//   axiosWithAuth()
+//     .post("auth/login", loginInfo)
+//     .then((res) => {
+//       console.log(res)
+//       localStorage.setItem("token", res.data.token);
+//       console.log(localStorage.getItem("token"))
+//       //if volunteer push to volunteer profile
+//       //if business push to business profile
+//       // eslint-disable-next-line no-lone-blocks
+      
+//       // eslint-disable-next-line no-lone-blocks
+//       {loginInfo.role === 'business' ? push("/business-profile") : push("/volunteer-profile")} //we will want to push to volunteer page if volunteer and donor page if donor
+      
+//     })
+//     .catch((err) => console.log(loginInfo.error));
+// };
