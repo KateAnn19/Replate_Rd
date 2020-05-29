@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./styles/App.css";
-import Login from "./login";
+//import Login from "./login";
+
+import Login from "./copy-login-redux";
 import Logout from "./logout";
 import { Route, Link, Switch, useHistory } from "react-router-dom";
 import ProtectedRoute from "./PrivateRoute";

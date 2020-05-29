@@ -2,10 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
-const EditProfileForm = ({setToggle, profile}) => {
-    const [editProfile, setEditedProfile] = useState(profile);
+const EditProfileForm = ({ setToggle, profile }) => {
+  const [editProfile, setEditedProfile] = useState({
+    address: profile["business-address"],
+    name: profile["business-name"],
+    phone: profile["business-phone"],
+    username: profile["username"],
+    id: profile["business-id"],
+  });
   const { push } = useHistory();
   console.log("HERE", profile);
+  console.log(editProfile);
 
   const handleChange = (e) => {
     setEditedProfile({
@@ -18,20 +25,19 @@ const EditProfileForm = ({setToggle, profile}) => {
     setToggle(false);
   };
 
-  const editBusProfile = e => {
+  const editBusProfile = (e) => {
     //edit profile
-   
-    axiosWithAuth()
-    .put('donors', editProfile)
-    .then((res) => {
-      console.log("IINSDIE BUSINESS",res)
-      //getData()
-      //add a successfully assigned to profile message
-     push("/business-profile");
-    })
-    .catch((err) => console.log(err.response))
-  };
 
+    axiosWithAuth()
+      .put("donors", editProfile)
+      .then((res) => {
+        console.log("IINSDIE BUSINESS", res);
+        //getData()
+        //add a successfully assigned to profile message
+        push("/business-profile");
+      })
+      .catch((err) => console.log(err.response));
+  };
 
   return (
     <div className="">
