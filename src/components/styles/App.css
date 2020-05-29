@@ -4,6 +4,15 @@
     height: 100vh;
 }
 
+.custom-btn-toolbar {
+    display: inline !important;
+  }
+  
+  .custom-btn-toolbar > .btn {
+    margin-left: 15rem;
+    margin-right: 10rem;
+  }
+
 .pickup-list-card {
     width: 350px;
     /* border: 1px solid gray; */
