@@ -80,9 +80,9 @@ const AddPickup = () => {
         <br /><br />
 
         <ButtonGroup
-          variant='text'
-          color='primary'
-          aria-label='text primary button group'
+          variant='outlined'
+          color='default'
+          aria-label='text default button group'
         >
           <Button type='submit'>Add Pickup</Button>
           <Button type='button' onClick={goBack}>Return To Profile</Button>
