@@ -29,7 +29,7 @@ const AddPickup = () => {
 
   const { push } = useHistory();
   const [newPickup, setPickup] = useState(initialState);
-  console.log(newPickup)
+  
 
   const handleChange = (e) => {
     setPickup({
