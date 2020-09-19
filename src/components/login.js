@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 const Login = () => {
   const { push } = useHistory();
   const [loginInfo, setLoginInfo] = useState(initialState);
+  console.log("login");
 
   const classes = useStyles();
 
@@ -42,14 +43,13 @@ const Login = () => {
       [e.target.name]: e.target.value,
     });
   };
-  console.log("This is login form", loginInfo);
+ 
 
   const login = (e) => {
     e.preventDefault();
     axiosWithAuth()
       .post("auth/login", loginInfo)
       .then((res) => {
-        console.log("This is response", res);
         localStorage.setItem("token", res.data.token);
         //if volunteer push to volunteer profile
         //if business push to business profile

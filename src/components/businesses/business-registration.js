@@ -12,8 +12,14 @@ let initialState = {
   phone: "",
 };
 
+
+let successfulregister = "Thank you! That was a sucess! You'll be re-directed to login page. Please login with username and password."
+
+
 const BusinessRegistration = () => {
   const [values, setValues] = useState(initialState);
+  const [message, setMessage] = useState(successfulregister);
+  const [success, setSuccess] = useState(false);
   console.log(values);
   const { push } = useHistory();
 
@@ -31,6 +37,10 @@ const BusinessRegistration = () => {
       .post("https://replater.herokuapp.com/api/auth/register", values)
       .then((res) => {
         console.log(res);
+        setSuccess(!success);
+        setTimeout(function () {
+          push("/")
+        }, 2000);
       })
 
       .catch((err) => {
@@ -39,6 +49,7 @@ const BusinessRegistration = () => {
   };
 
   return (
+    success ? (<div><h1>{message}</h1> </div>):
     <div className="user-form">
       <form>
         <label htmlFor="username">

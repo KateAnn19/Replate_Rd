@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
+import useForceUpdate from 'use-force-update';
 
 const EditProfileForm = ({ setToggle, profile }) => {
   const [editProfile, setEditedProfile] = useState({
@@ -8,8 +9,11 @@ const EditProfileForm = ({ setToggle, profile }) => {
     phone: profile["volunteer-phone"],
     id: profile["volunteer-id"],
   });
+
+  const forceUpdate = useForceUpdate();
+  
   const { push } = useHistory();
-  console.log("HERE", profile);
+ 
 
   const handleChange = (e) => {
     setEditedProfile({
@@ -22,13 +26,12 @@ const EditProfileForm = ({ setToggle, profile }) => {
     setToggle(false);
   };
 
-  const editVolProfile = () => {
+  const editVolProfile = (e) => {
     //edit profile
+    e.preventDefault();
     axiosWithAuth()
       .put("volunteers", editProfile)
       .then((res) => {
-        console.log(res);
-        //getData()
         //add a successfully assigned to profile message
         push("/volunteer-profile");
       })

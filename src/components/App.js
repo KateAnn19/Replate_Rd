@@ -18,6 +18,8 @@ import BusinessRegistration from "./businesses/business-registration";
 
 import BusinessProfile from "./businesses/business-profile";
 import AddPickup from "./businesses/addPickup";
+import EditProfileForm from "./businesses/editBusProfileForm";
+import EditVolProfileForm from "./volunteers/editVolProfileForm";
 
 import VolunteerProfile from "./volunteers/volunteer-profile";
 import PickUpList from "./volunteers/pickup-list";
@@ -33,10 +35,10 @@ import { LinkContainer } from "react-router-bootstrap";
 
 function App() {
   return (
-    <MemoryRouter>
+    // <MemoryRouter>
       <div className="App">
         <Container>
-          <Jumbotron>
+          <Jumbotron className="jumbotron">
             <ButtonToolbar className="custom-btn-toolbar">
               <LinkContainer to="/">
                 <Button>Login</Button>
@@ -48,21 +50,29 @@ function App() {
           </Jumbotron>
         </Container>
 
-        <Switch>
+        
           <Route exact path="/" component={Login} />
           <Route
-            path="/volunteer-registration"
+            exact path="/volunteer-registration"
             component={VolunteerRegistration}
           />
           <Route
-            path="/business-registration"
+            exact path="/business-registration"
             component={BusinessRegistration}
           />
-          <ProtectedRoute
-            path="/business-profile"
+          <Route
+            exact path="/business-profile"
             component={BusinessProfile}
           />
-          <Route path="/add-pickup" component={AddPickup} />
+          <Route
+            exact path="/edit-business-profile"
+            component={EditProfileForm}
+          />
+          <Route
+            exact path="/edit-volunteer-profile"
+            component={EditVolProfileForm}
+          />
+          <Route exact path="/add-pickup" component={AddPickup} />
           <ProtectedRoute
             path="/volunteer-profile"
             component={VolunteerProfile}
@@ -70,9 +80,8 @@ function App() {
           <Route path="/pickup-list" component={PickUpList} />
           <Route path="/logout" component={Logout} />
           <Route path="/editPickup" component={EditPickup} />
-        </Switch>
       </div>
-    </MemoryRouter>
+   
   );
 }
 

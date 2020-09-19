@@ -63,10 +63,8 @@ let fakeProfile = {
 function BusinessProfile({ getBusProfData, busProf, deleteBusProf }) {
   const [profile, setProfile] = useState(fakeProfile);
   const [pickups, setPickups] = useState([]);
-
   const [isLoaded, setIsLoaded] = useState(false);
   const { push } = useHistory();
-
   const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
@@ -105,7 +103,8 @@ function BusinessProfile({ getBusProfData, busProf, deleteBusProf }) {
         </>
       )}
       {toggle ? (
-        <EditProfileForm profile={busProf} setToggle={setToggle} />
+        push('/edit-business-profile')
+        //<EditProfileForm getProfileData={getBusProfData} profile={busProf} togglestate={toggle} setToggle={setToggle} />
       ) : null}
       <h2>Current Pickups</h2>
       {isLoaded === false ? (
@@ -120,7 +119,8 @@ function BusinessProfile({ getBusProfData, busProf, deleteBusProf }) {
       )}
 
       <button onClick={() => push("/add-pickup")}>Add Pickup</button>
-      <button onClick={() => setToggle(!toggle)}>Edit Profile</button>
+      {/* <button onClick={() => setToggle(!toggle)}>Edit Profile</button> */}
+      <button onClick={() => push('/edit-business-profile')}>Edit Profile</button>
 
       <button
         onClick={() => {

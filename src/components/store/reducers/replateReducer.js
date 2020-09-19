@@ -29,9 +29,9 @@ export const initialState = {
 };
 
 export const replateReducer = (state = initialState, action) => {
-  console.log("in replate reducer", state);
-  console.log("in replate reducer action", action);
-  console.log("in replate reducer action.payload", action.payload);
+  // console.log("in replate reducer", state);
+  // console.log("in replate reducer action", action);
+  // console.log("in replate reducer action.payload", action.payload);
   switch (action.type) {
     case GET_BUSPROFDETAILS_START:
       return {

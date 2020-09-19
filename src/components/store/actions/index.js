@@ -52,7 +52,7 @@ export const getBusProfData = () => {
     axiosWithAuth()
       .get("donors")
       .then((res) => {
-        console.log("Inside Get", res);
+       
         dispatch({ type: GET_BUSPROFDETAILS_SUCCESS, payload: res.data });
       })
       .catch((err) => {
@@ -85,7 +85,7 @@ export const getVolProfData = () => {
     axiosWithAuth()
       .get("volunteers")
       .then((res) => {
-        console.log("Inside Get", res);
+        
         dispatch({ type: GET_VOLPROFDETAILS_SUCCESS, payload: res.data });
       })
       .catch((err) => {
@@ -112,13 +112,13 @@ export const deleteVolProf = () => {
 
 export const login = (loginInfo) => {
   //delete profile
-  console.log("here is login info", loginInfo)
+ 
   return dispatch => {
     dispatch({type: POST_LOGIN_CREDENTIALS_START});
     axiosWithAuth()
     .post("auth/login", loginInfo)
     .then((res) => {
-      console.log("THIS IS RESPONSE",res)
+      
       dispatch({ type: POST_LOGIN_CREDENTIALS_SUCCESS, payload: res.data.token});
     })
     .catch(err => {

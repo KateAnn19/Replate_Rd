@@ -35,7 +35,6 @@ const Login = ({ login, loginInfo }) => {
   const { push } = useHistory();
   const [loginInform, setLoginInfo] = useState(initialState);
 
-  console.log(loginInform)
 
   const classes = useStyles();
 
@@ -45,30 +44,7 @@ const Login = ({ login, loginInfo }) => {
       [e.target.name]: e.target.value,
     });
   };
-  console.log("This is login form", loginInform);
-  console.log("this is loginInfo", loginInfo);
-  // const login = (e) => {
-  //   e.preventDefault();
-  //   axiosWithAuth()
-  //     .post("auth/login", loginInfo)
-  //     .then((res) => {
-  //       console.log(res);
-  //       localStorage.setItem("token", res.data.token);
-  //       console.log(localStorage.getItem("token"));
-  //       //if volunteer push to volunteer profile
-  //       //if business push to business profile
-  //       // eslint-disable-next-line no-lone-blocks
-
-  //       // eslint-disable-next-line no-lone-blocks
-  //       {
-  //         loginInfo.role === "business"
-  //           ? push("/business-profile")
-  //           : push("/volunteer-profile");
-  //       } //we will want to push to volunteer page if volunteer and donor page if donor
-  //     })
-  //     .catch((err) => console.log(loginInfo.error));
-  // };
-
+  
   return (
     <div>
       <h1 className="replate-header">Replate</h1>
@@ -76,7 +52,6 @@ const Login = ({ login, loginInfo }) => {
         className="login"
         onSubmit={(e) => {
           e.preventDefault()
-          console.log("TEST",loginInform)
           login(loginInform);
           // localStorage.setItem("token", loginInfo);
 
@@ -127,7 +102,6 @@ const Login = ({ login, loginInfo }) => {
 };
 
 const mapStateToProps = (state) => {
-  console.log("this is state in copy-login", state);
   return {
     isFetching: state.isFetching,
     error: state.error,

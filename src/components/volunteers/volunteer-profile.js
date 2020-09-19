@@ -43,7 +43,6 @@ function VolunteerProfile({getVolProfData, volProf, deleteVolProf}) {
     axiosWithAuth()
       .get("pickups")
       .then((res) => {
-        console.log(res);
         setPickups(res.data);
       })
       .catch((err) => console.log(err.response));
@@ -56,7 +55,6 @@ function VolunteerProfile({getVolProfData, volProf, deleteVolProf}) {
         "volunteer-id": "",
       })
       .then((res) => {
-        console.log(res);
         getData();
      push("/volunteer-profile");
       })
